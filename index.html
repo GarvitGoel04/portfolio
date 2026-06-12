@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Garvit Goel — Junior DevOps Engineer at Omniful AI. AWS Certified Solutions Architect (SAA-C03). Expert in Terraform, ECS, Docker, CI/CD, Grafana.">
+  <meta name="description" content="Garvit Goel — Junior DevOps Engineer at Omniful AI. AWS Certified Solutions Architect (SAA-C03). Experienced in Terraform, ECS, Docker, CI/CD, Grafana.">
   
   <meta property="og:title" content="Garvit Goel | DevOps Engineer">
   <meta property="og:description" content="Garvit Goel — Junior DevOps Engineer at Omniful AI. AWS Certified Solutions Architect (SAA-C03).">
@@ -15,10 +15,13 @@
   <!-- Favicon SVG -->
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90' fill='%2300d4ff' font-family='sans-serif' font-weight='bold'>GG</text></svg>">
 
-  <!-- Premium Fonts -->
+  <!-- Performance: Preconnect -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700;800&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+
+  <!-- Premium Fonts (Optimized Weights) -->
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&family=Inter:wght@400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
   
   <!-- Icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
@@ -73,7 +76,7 @@
     #cursor-ring {
       position: fixed; top: 0; left: 0; width: 24px; height: 24px; border: 1px solid var(--accent-primary);
       border-radius: 50%; pointer-events: none; z-index: 9999; transform: translate(-50%, -50%);
-      transition: width 0.2s, height 0.2s, background 0.2s;
+      transition: width 0.2s, height 0.2s, background 0.2s, border-width 0.2s;
     }
     #cursor-ring.hover { width: 48px; height: 48px; background: rgba(0,212,255,0.1); }
     #cursor-ring.click { animation: rippleBurst 0.4s ease-out; }
@@ -93,17 +96,16 @@
     /* LOADING SCREEN */
     #loading-screen {
       position: fixed; inset: 0; background: var(--bg-deep); z-index: 20000;
-      display: flex; flex-direction: column; justify-content: center; align-items: flex-start;
-      padding: 40px; font-family: var(--font-mono); color: var(--accent-primary);
-      max-width: 800px; margin: 0 auto;
+      display: flex; flex-direction: column; justify-content: center; align-items: center;
+      padding: 40px; font-family: var(--font-mono); color: var(--text-primary);
     }
-    #loading-screen.fade-out { animation: whiteFlash 0.5s forwards; }
-    @keyframes whiteFlash {
-      0% { background: var(--bg-deep); opacity: 1; }
-      50% { background: #ffffff; opacity: 1; }
-      100% { opacity: 0; visibility: hidden; }
-    }
-    .terminal-line { opacity: 0; margin-bottom: 8px; font-size: 1.1rem; }
+    #loading-screen.fade-out { animation: fadeOut 0.5s forwards; }
+    @keyframes fadeOut { to { opacity: 0; visibility: hidden; } }
+    
+    .loader-term { text-align: left; max-width: 400px; width: 100%; }
+    .loader-term p { margin-bottom: 8px; color: var(--accent-primary); }
+    .loader-bar-wrap { width: 100%; font-size: 1.2rem; display: flex; align-items: center; gap: 8px; }
+    .loader-bar { display: inline-block; white-space: pre; }
 
     /* READING PROGRESS */
     #read-progress {
@@ -138,7 +140,7 @@
       background: rgba(0, 0, 0, 0.95);
       border-bottom: 1px solid rgba(0, 212, 255, 0.2);
     }
-    .nav-logo { font-family: var(--font-display); font-weight: 800; font-size: 1.8rem; color: var(--accent-secondary); letter-spacing: 1px; transition: color 0.1s; }
+    .nav-logo { font-family: var(--font-display); font-weight: 700; font-size: 1.8rem; color: var(--accent-secondary); letter-spacing: 1px; transition: color 0.1s; }
     .nav-logo:hover { animation: navGlitch 0.3s forwards; color: var(--accent-primary); }
     @keyframes navGlitch {
       0% { transform: translate(0); text-shadow: none; }
@@ -171,7 +173,6 @@
     /* 3-LAYER HERO BACKGROUND */
     .hero { min-height: 100vh; display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; }
     
-    /* Layer 1: Perspective Grid */
     .hero-grid-bg {
       position: absolute; inset: 0; z-index: 0;
       background-image: 
@@ -183,25 +184,20 @@
     }
     @keyframes gridFlyForward { 100% { transform: perspective(600px) rotateX(60deg) translateY(600px) translateZ(-200px); } }
 
-    /* Layer 2: Canvas Radar */
     #radar-canvas { position: absolute; inset: 0; z-index: 1; }
-    
-    /* Layer 3: Particles */
     #particle-canvas { position: absolute; inset: 0; z-index: 2; pointer-events: none; }
 
     /* HERO CONTENT */
     .hero-content { position: relative; z-index: 10; display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; width: 100%; }
     
     .hero-text { display: flex; flex-direction: column; align-items: flex-start; }
-    .hero-greeting { font-family: var(--font-mono); color: var(--text-secondary); margin-bottom: 16px; }
     
-    /* Name Collision Animation */
     .name-wrapper { position: relative; margin-bottom: 12px; display: flex; flex-direction: column; align-items: flex-start; }
     .name-container { display: flex; flex-wrap: wrap; overflow: hidden; }
     .name-letter {
-      font-family: var(--font-display); font-size: clamp(3rem, 6vw, 5rem); font-weight: 800;
+      font-family: var(--font-display); font-size: clamp(3rem, 6vw, 5rem); font-weight: 700;
       color: var(--text-primary); text-transform: uppercase; line-height: 1.1; letter-spacing: -2px;
-      opacity: 0; display: inline-block;
+      opacity: 0; display: inline-block; will-change: transform;
     }
     .letter-left { transform: translateX(-100vw); animation: slamLeft 0.8s cubic-bezier(0.2, 1, 0.3, 1) forwards; }
     .letter-right { transform: translateX(100vw); animation: slamRight 0.8s cubic-bezier(0.2, 1, 0.3, 1) forwards; }
@@ -215,7 +211,6 @@
     .name-underline.drawn { animation: drawUnderline 0.4s ease-out forwards; }
     @keyframes drawUnderline { to { width: 100%; } }
 
-    /* Availability Pill */
     .avail-pill {
       display: inline-flex; align-items: center; gap: 8px; margin-top: 24px; margin-bottom: 24px;
       padding: 6px 16px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1);
@@ -224,7 +219,6 @@
     .avail-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--accent-green); box-shadow: 0 0 8px var(--accent-green); animation: blinkGreen 1.5s infinite; }
     @keyframes blinkGreen { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
 
-    /* Typewriter */
     .hero-role { font-family: var(--font-mono); font-size: 1.25rem; color: var(--accent-primary); margin-bottom: 24px; min-height: 30px; }
     .hero-subtext { color: var(--text-secondary); max-width: 500px; line-height: 1.8; font-size: 1.1rem; }
 
@@ -234,6 +228,7 @@
       width: 320px; height: 320px; position: relative;
       clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
       overflow: hidden; z-index: 2; background: var(--bg-elevated);
+      will-change: transform;
     }
     .hex-img { width: 100%; height: 100%; object-fit: cover; transition: filter 0.6s ease; }
     
@@ -254,7 +249,6 @@
     }
     @keyframes hexRotate { 100% { transform: rotate(360deg); } }
 
-    /* Floating HUD */
     .hud-element {
       position: absolute; background: rgba(0, 0, 0, 0.7); border: 1px solid var(--border-subtle);
       padding: 8px 16px; font-family: var(--font-mono); font-size: 0.8rem; color: var(--accent-primary);
@@ -266,11 +260,9 @@
     .hud-4 { bottom: -5%; right: 10%; animation: floatHUD 4.5s ease-in-out infinite 0.5s; }
     @keyframes floatHUD { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-15px); } }
 
-    /* Scroll Arrow */
     .scroll-arrow {
       position: absolute; bottom: 40px; left: 50%; transform: translateX(-50%);
-      width: 30px; height: 46px; border: 2px solid var(--text-secondary); border-radius: 15px;
-      opacity: 0.6;
+      width: 30px; height: 46px; border: 2px solid var(--text-secondary); border-radius: 15px; opacity: 0.6;
     }
     .scroll-arrow::before {
       content: ''; position: absolute; top: 8px; left: 50%; transform: translateX(-50%);
@@ -279,21 +271,24 @@
     }
     @keyframes scrollWheel { 0% { transform: translate(-50%, 0); opacity: 1; } 100% { transform: translate(-50%, 15px); opacity: 0; } }
 
-    /* ABOUT SECTION */
-    .about-text { font-size: 1.1rem; color: var(--text-secondary); margin-bottom: 20px; line-height: 1.8; }
-    .about-list { list-style: none; margin-top: 24px; }
-    .about-list li {
-      position: relative; padding-left: 24px; margin-bottom: 12px;
-      font-family: var(--font-mono); font-size: 0.95rem; color: var(--text-secondary);
+    /* ABOUT SECTION (JSON Terminal) */
+    .about-terminal {
+      background: var(--bg-card); border: 1px solid var(--bg-elevated);
+      border-radius: 8px; padding: 32px; font-family: var(--font-mono);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.5);
     }
-    .about-list li::before { content: '>'; position: absolute; left: 0; color: var(--accent-primary); }
+    .about-cmd { margin-bottom: 24px; color: var(--text-primary); }
+    .about-cmd span.prompt { color: var(--accent-primary); margin-right: 12px; }
+    
+    .json-output { color: var(--text-primary); line-height: 1.8; font-size: 0.95rem; }
+    .json-key { color: var(--text-secondary); }
+    .json-str { color: var(--accent-primary); }
+    .json-val { color: var(--accent-gold); }
 
     /* EXPERIENCE TIMELINE */
     .timeline-container { position: relative; margin-top: 40px; }
     .timeline-svg { position: absolute; left: 19px; top: 0; width: 4px; height: 100%; z-index: 0; }
-    .timeline-line {
-      stroke: var(--bg-elevated); stroke-width: 2;
-    }
+    .timeline-line { stroke: var(--bg-elevated); stroke-width: 2; }
     .timeline-draw {
       stroke: var(--accent-primary); stroke-width: 2;
       stroke-dasharray: 2000; stroke-dashoffset: 2000;
@@ -303,7 +298,7 @@
       width: 8px; height: 8px; background: var(--accent-primary); border-radius: 50%;
       position: absolute; left: 17px; top: 0; z-index: 1;
       box-shadow: 0 0 10px var(--accent-primary);
-      animation: flowDown 3s linear infinite;
+      animation: flowDown 3s linear infinite; will-change: transform;
     }
     @keyframes flowDown { 0% { top: 0; opacity: 0; } 10% { opacity: 1; } 90% { opacity: 1; } 100% { top: 100%; opacity: 0; } }
 
@@ -314,6 +309,7 @@
       position: absolute; left: 14px; top: 6px; width: 14px; height: 14px;
       border-radius: 50%; background: var(--bg-deep); border: 2px solid var(--accent-primary);
       z-index: 2; opacity: 0; transform: scale(0); transition: all 0.4s ease;
+      will-change: transform;
     }
     .timeline-dot.active { opacity: 1; transform: scale(1); box-shadow: 0 0 15px var(--glow-primary); animation: pulseDot 2s infinite; }
     @keyframes pulseDot { 0% { box-shadow: 0 0 0 0 rgba(0,212,255,0.4); } 70% { box-shadow: 0 0 0 10px rgba(0,212,255,0); } 100% { box-shadow: 0 0 0 0 rgba(0,212,255,0); } }
@@ -327,7 +323,6 @@
     .timeline-card.active { opacity: 1; transform: translateX(0); }
     .timeline-card:hover { box-shadow: 0 0 40px rgba(0, 212, 255, 0.2); }
 
-    /* Animated Gradient Background on Omniful Card */
     .timeline-card.omniful::before {
       content: ''; position: absolute; inset: -5px; z-index: -1;
       background: conic-gradient(from 0deg, var(--border-subtle), transparent 40%, var(--border-subtle) 80%);
@@ -338,7 +333,7 @@
     }
     @keyframes slowRotate { 100% { transform: rotate(360deg); } }
     
-    .timeline-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 16px; }
+    .timeline-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 24px; }
     .timeline-title { font-family: var(--font-display); font-size: 1.5rem; color: var(--text-primary); }
     .timeline-subtitle { font-family: var(--font-mono); color: var(--accent-primary); font-size: 1rem; margin-top: 4px; }
     .timeline-date { font-family: var(--font-mono); font-size: 0.85rem; color: var(--text-secondary); }
@@ -346,49 +341,38 @@
     .current-badge {
       display: inline-flex; align-items: center; gap: 6px; padding: 4px 12px; background: rgba(16, 185, 129, 0.1);
       border: 1px solid rgba(16, 185, 129, 0.3); color: var(--accent-green);
-      font-family: var(--font-mono); font-size: 0.75rem; border-radius: 4px;
-      margin-left: 12px;
+      font-family: var(--font-mono); font-size: 0.75rem; border-radius: 4px; margin-left: 12px;
     }
     .current-badge span { width: 6px; height: 6px; border-radius: 50%; background: var(--accent-green); animation: blinkGreen 2s infinite; }
 
-    .timeline-bullets { list-style: none; margin-top: 20px; }
-    .timeline-bullets li { position: relative; padding-left: 20px; margin-bottom: 12px; color: var(--text-secondary); }
-    .timeline-bullets li::before { content: '>'; position: absolute; left: 0; font-family: var(--font-mono); color: var(--accent-primary); }
+    .timeline-bullets { list-style: none; }
+    .timeline-bullets li { margin-bottom: 20px; color: var(--text-secondary); }
+    .cmd-flavor { font-family: var(--font-mono); font-size: 0.75rem; color: var(--text-secondary); margin-bottom: 4px; display: block; opacity: 0.7; }
+    .cmd-flavor span { color: var(--accent-primary); }
 
     /* PROJECTS */
     .projects-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 40px; }
     
     .project-card {
-      background: var(--bg-card); position: relative; padding: 40px; border-radius: 12px;
-      transform-style: preserve-3d; transition: transform 0.3s, box-shadow 0.3s;
+      background: var(--bg-card); position: relative; padding: 40px; border-radius: 8px;
+      border: 1px solid var(--border-subtle);
+      transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+      will-change: transform;
     }
-    .project-card::before {
-      content: ''; position: absolute; inset: -3px; z-index: -1; border-radius: 14px;
-      background: conic-gradient(from var(--angle), var(--accent-primary) 0%, var(--accent-secondary) 20%, transparent 40%, transparent 100%);
-      animation: borderSpin 4s linear infinite;
-    }
-    @property --angle { syntax: '<angle>'; initial-value: 0deg; inherits: false; }
-    @keyframes borderSpin { 100% { --angle: 360deg; } }
-    
-    .project-card::after {
-      content: ''; position: absolute; inset: 0; background: var(--bg-card); border-radius: 12px; z-index: -1;
-      background-image: linear-gradient(to right, rgba(0,212,255,0.05) 1px, transparent 1px), linear-gradient(to bottom, rgba(0,212,255,0.05) 1px, transparent 1px);
-      background-size: 20px 20px; opacity: 0; transition: opacity 0.3s;
-    }
-
     .project-card:hover {
-      transform: translateY(-12px); box-shadow: 0 24px 48px rgba(0, 212, 255, 0.3);
+      transform: translateY(-6px);
+      border-color: rgba(0, 212, 255, 0.6);
+      box-shadow: 0 8px 32px rgba(0, 212, 255, 0.2);
     }
-    .project-card:hover::after { opacity: 1; }
-
-    .proj-label { font-family: var(--font-mono); font-size: 0.75rem; color: var(--accent-primary); margin-bottom: 16px; display: block; }
-    .project-title { font-family: var(--font-display); font-size: 1.5rem; margin-bottom: 12px; color: var(--text-primary); }
-    .project-title .cursor { animation: blinkText 1s infinite; color: var(--accent-primary); margin-left: 4px; }
-    @keyframes blinkText { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
     
-    .project-date { font-family: var(--font-mono); font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 24px; display: block;}
+    .proj-title-bar { display: flex; align-items: center; font-family: var(--font-mono); font-size: 0.85rem; color: var(--text-primary); margin-bottom: 24px; padding-bottom: 12px; border-bottom: 1px solid var(--bg-elevated); }
+    .proj-title-bar span { color: var(--text-secondary); margin-right: 8px; }
+
+    .project-date { font-family: var(--font-mono); font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 16px; display: block;}
     .project-desc { color: var(--text-secondary); margin-bottom: 24px; line-height: 1.7; }
-    .project-tech { display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 32px; }
+    
+    .project-tech { display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 32px; align-items: center; }
+    .tech-prefix { font-family: var(--font-mono); font-size: 0.8rem; color: var(--text-secondary); }
     .tech-tag {
       font-family: var(--font-mono); font-size: 0.8rem; padding: 6px 12px; background: rgba(255,255,255,0.05);
       border: 1px solid var(--border-subtle); border-radius: 4px; color: var(--text-secondary);
@@ -403,29 +387,38 @@
     }
     .proj-link:hover { color: var(--accent-primary); transform: translateX(4px); }
 
-    /* SKILLS (Terminal) */
-    .terminal-window {
-      background: var(--bg-card); border: 1px solid var(--bg-elevated);
+    /* SKILLS (Compact Terminal) */
+    .skills-terminal {
+      background: var(--bg-card); border: 1px solid var(--border-subtle);
       border-radius: 8px; overflow: hidden; font-family: var(--font-mono);
       box-shadow: 0 20px 40px rgba(0,0,0,0.5);
     }
-    .terminal-header { background: var(--bg-elevated); padding: 12px 20px; display: flex; gap: 8px; }
-    .terminal-btn { width: 12px; height: 12px; border-radius: 50%; background: #333; }
-    .terminal-body { padding: 32px; font-size: 0.95rem; line-height: 1.8; overflow-x: auto; }
+    .skills-term-header { background: var(--bg-elevated); padding: 12px 20px; display: flex; align-items: center; gap: 12px; border-bottom: 1px solid var(--border-subtle); }
+    .term-dots { display: flex; gap: 8px; }
+    .term-dots div { width: 12px; height: 12px; border-radius: 50%; }
+    .skills-term-title { color: var(--text-secondary); font-size: 0.9rem; margin-left: 8px; }
     
-    .term-line { display: flex; opacity: 0; transition: opacity 0.1s; padding: 4px 8px; border-left: 2px solid transparent; }
-    .term-line.printed { opacity: 1; }
-    .term-line:hover { background: rgba(0, 212, 255, 0.12); border-left-color: var(--accent-primary); }
+    .skills-term-body { padding: 32px; font-size: 0.95rem; line-height: 1.8; overflow-x: auto; }
     
-    .term-perms { color: var(--text-secondary); width: 100px; flex-shrink: 0; }
-    .term-owner { color: var(--text-secondary); width: 140px; flex-shrink: 0; }
-    .term-size { color: var(--text-secondary); width: 60px; text-align: right; margin-right: 16px; flex-shrink: 0; }
-    .term-date { color: var(--text-secondary); width: 120px; flex-shrink: 0; }
-    .term-name { color: var(--accent-primary); }
-    .term-name.dir { color: var(--accent-secondary); font-weight: 600; }
+    .skill-category { margin-bottom: 32px; }
+    .skill-category:last-child { margin-bottom: 0; }
+    .cat-cmd { color: var(--text-primary); margin-bottom: 16px; }
+    .cat-cmd .prompt { color: var(--accent-primary); margin-right: 12px; }
     
-    .term-prompt { color: var(--accent-primary); margin-right: 12px; }
-    .term-cmd { color: var(--text-primary); }
+    .skill-grid { display: grid; grid-template-columns: repeat(3, 1fr); row-gap: 4px; column-gap: 16px; }
+    .skill-row { display: contents; }
+    
+    /* Simulate row hover via pseudo-row backgrounds in JS, or style cells */
+    .skill-cell {
+      padding: 6px 12px; border-left: 2px solid transparent; color: var(--text-secondary);
+      opacity: 0; transition: opacity 0.1s, background 0.2s, border-color 0.2s;
+    }
+    .skill-cell.printed { opacity: 1; }
+    .skill-cell.col-1::before { content: '>'; color: var(--accent-primary); margin-right: 12px; }
+    
+    /* Handled by JS mouseenter/mouseleave for full row highlight */
+    .skill-row-highlight .skill-cell { background: rgba(0, 212, 255, 0.12); }
+    .skill-row-highlight .skill-cell.col-1 { border-left-color: var(--accent-primary); }
 
     /* CERTIFICATIONS */
     .certs-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 32px; }
@@ -440,17 +433,13 @@
       text-align: center; padding: 24px;
     }
     .cert-front { background: var(--bg-card); border: 1px solid var(--bg-elevated); }
-    .cert-back {
-      background: var(--bg-elevated); border: 1px solid var(--border-subtle);
-      transform: rotateY(180deg);
-    }
+    .cert-back { background: var(--bg-elevated); border: 1px solid var(--border-subtle); transform: rotateY(180deg); }
     
     .cert-front i { font-size: 2.5rem; color: var(--accent-secondary); margin-bottom: 16px; }
     .cert-front h3 { font-family: var(--font-display); font-size: 1.1rem; }
     .cert-back i { font-size: 3rem; color: var(--accent-primary); margin-bottom: 16px; }
     .cert-back span { font-family: var(--font-mono); font-size: 0.9rem; color: var(--text-secondary); }
 
-    /* AWS Dominant Card */
     .aws-cert .cert-front {
       border: 1px solid rgba(245, 158, 11, 0.4); overflow: hidden; position: relative;
       display: flex; flex-direction: row; justify-content: space-between; align-items: center; padding: 40px; text-align: left;
@@ -463,19 +452,14 @@
     @keyframes sweepShimmer { 0%, 20% { left: -100%; } 80%, 100% { left: 200%; } }
     
     .aws-text-content h3 { font-size: 1.8rem; margin-bottom: 16px; }
-    .aws-first-attempt {
-      font-family: var(--font-mono); font-weight: bold; color: var(--accent-gold);
-      display: inline-flex; align-items: center; gap: 8px; padding: 8px 16px; background: rgba(245, 158, 11, 0.1); border-radius: 4px;
-    }
+    .aws-first-attempt { font-family: var(--font-mono); font-weight: bold; color: var(--accent-gold); display: inline-flex; align-items: center; gap: 8px; padding: 8px 16px; background: rgba(245, 158, 11, 0.1); border-radius: 4px; }
     .aws-bg-logo { font-size: 14rem; position: absolute; right: -20px; top: 50%; transform: translateY(-50%); opacity: 0.15; color: var(--accent-gold); pointer-events: none; }
 
     /* CONTACT SECTION */
     #contact { position: relative; overflow: hidden; padding: 160px 0; border-top: 1px solid var(--bg-elevated); }
     .contact-grid-bg {
       position: absolute; inset: 0; z-index: -1;
-      background-image: 
-        linear-gradient(to right, rgba(0, 212, 255, 0.05) 1px, transparent 1px),
-        linear-gradient(to bottom, rgba(0, 212, 255, 0.05) 1px, transparent 1px);
+      background-image: linear-gradient(to right, rgba(0, 212, 255, 0.05) 1px, transparent 1px), linear-gradient(to bottom, rgba(0, 212, 255, 0.05) 1px, transparent 1px);
       background-size: 50px 50px;
       transform: perspective(500px) rotateX(60deg) translateY(-100px) translateZ(-200px);
       animation: gridFlyForward 20s linear infinite;
@@ -489,11 +473,10 @@
     .btn-resume {
       display: inline-flex; align-items: center; gap: 12px; padding: 16px 32px;
       background: transparent; border: 1px solid var(--accent-primary); color: var(--accent-primary);
-      font-family: var(--font-mono); border-radius: 4px; transition: all 0.3s;
+      font-family: var(--font-mono); border-radius: 4px; transition: all 0.3s; text-decoration: none;
     }
     .btn-resume:hover { background: rgba(0,212,255,0.1); box-shadow: 0 0 20px var(--border-subtle); }
 
-    /* Terminal Form */
     .contact-terminal {
       background: #000; border: 1px solid var(--bg-elevated); border-radius: 8px; padding: 32px;
       font-family: var(--font-mono); font-size: 0.95rem; box-shadow: 0 20px 40px rgba(0,0,0,0.5);
@@ -535,6 +518,10 @@
       .nav-links { display: none; }
       .aws-cert .cert-front { flex-direction: column; text-align: center; padding: 24px; }
       .aws-bg-logo { right: 50%; transform: translate(50%, -50%); opacity: 0.05; }
+      .skill-grid { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 600px) {
+      .skill-grid { grid-template-columns: 1fr; }
     }
   </style>
 </head>
@@ -545,14 +532,17 @@
   <div id="cursor-ring"></div>
   <div id="read-progress"></div>
 
-  <!-- LOADING SCREEN -->
+  <!-- LIGHTWEIGHT PRELOADER -->
   <div id="loading-screen">
-    <div class="terminal-line" style="animation-delay: 0.35s">> SYSTEM BOOT...</div>
-    <div class="terminal-line" style="animation-delay: 0.7s">> Loading modules: [████████████] 100%</div>
-    <div class="terminal-line" style="animation-delay: 1.05s">> AWS credentials: VERIFIED ✓</div>
-    <div class="terminal-line" style="animation-delay: 1.4s">> Infrastructure: ONLINE ✓</div>
-    <div class="terminal-line" style="animation-delay: 1.75s">> Deploying portfolio.exe...</div>
-    <div class="terminal-line" style="animation-delay: 2.1s; color: var(--text-primary);">> ACCESS GRANTED</div>
+    <div class="loader-term">
+      <p>> garvit@portfolio:~$ loading...</p>
+      <div class="loader-bar-wrap">
+        <span style="color:var(--accent-primary);">[</span>
+        <span class="loader-bar" id="l-bar"></span>
+        <span style="color:var(--accent-primary);">]</span>
+        <span id="l-pct">0%</span>
+      </div>
+    </div>
   </div>
 
   <!-- NAVBAR -->
@@ -575,31 +565,24 @@
     
     <div class="container hero-content">
       <div class="hero-text">
-        
         <div class="name-wrapper">
-          <div class="name-container" id="name-anim">
-            <!-- Injected via JS -->
-          </div>
+          <div class="name-container" id="name-anim"></div>
           <div class="name-underline" id="name-line"></div>
         </div>
         
         <div class="avail-pill reveal" data-delay="800">
-          <div class="avail-dot"></div> AVAILABLE FOR OPPORTUNITIES
+          <div class="avail-dot"></div> Junior DevOps Engineer @ Omniful AI
         </div>
         
         <div class="hero-role reveal" data-delay="900">
           <span id="typed-output"></span><span class="cursor" style="animation: blinkText 1s infinite;">|</span>
         </div>
-        
-        <p class="hero-subtext reveal" data-delay="1000">
-          Junior DevOps Engineer at Omniful AI · AWS Certified Solutions Architect (SAA-C03)
-        </p>
       </div>
 
       <div class="profile-wrapper reveal" data-delay="500">
         <div class="hex-border"></div>
         <div class="hex-container">
-          <img src="https://raw.githubusercontent.com/GarvitGoel04/portfolio/main/Profile_pic.jpeg" alt="Garvit Goel" class="hex-img">
+          <img src="https://raw.githubusercontent.com/GarvitGoel04/portfolio/main/Profile_pic.jpeg" alt="Garvit Goel" class="hex-img" loading="lazy">
           <div class="scanline"></div>
         </div>
         <div class="hud-element hud-1">AWS ✓</div>
@@ -616,14 +599,24 @@
   <section id="about" class="container">
     <h2 class="section-title reveal"><span class="glitch-text">/ About</span></h2>
     <div class="reveal" data-delay="100">
-      <p class="about-text">
-        Working at <strong>Omniful AI</strong> (AI-based SaaS), managing AWS infra for dev/staging environments.
-      </p>
-      <ul class="about-list">
-        <li>AWS SAA-C03 certified on first attempt</li>
-        <li>B.Tech CS&D from IMS Engineering College, Ghaziabad (CGPA 7.9)</li>
-        <li>Skilled in Terraform, ECS, Docker, CI/CD, Grafana, Prometheus</li>
-      </ul>
+      
+      <div class="about-terminal">
+        <div class="about-cmd">
+          <span class="prompt">garvit@portfolio:~$</span> whoami && cat profile.json
+        </div>
+        <div class="json-output">
+<pre>{
+  <span class="json-key">"name"</span>: <span class="json-str">"Garvit Goel"</span>,
+  <span class="json-key">"role"</span>: <span class="json-str">"Junior DevOps Engineer"</span>,
+  <span class="json-key">"company"</span>: <span class="json-str">"Omniful AI"</span>,
+  <span class="json-key">"experience"</span>: <span class="json-str">"8 months (professional)"</span>,
+  <span class="json-key">"aws_certified"</span>: <span class="json-val">true</span>,
+  <span class="json-key">"cgpa"</span>: <span class="json-val">7.9</span>,
+  <span class="json-key">"status"</span>: <span class="json-str">"open_to_opportunities"</span>
+}</pre>
+        </div>
+      </div>
+
     </div>
   </section>
 
@@ -649,10 +642,22 @@
             <div class="timeline-date">Sept 2025 – Present</div>
           </div>
           <ul class="timeline-bullets">
-            <li>Managing AWS infrastructure (Terraform, ECS, CloudWatch) for dev and staging environments</li>
-            <li>Infrastructure as Code (IaC) — consistency, repeatability, rollback safety</li>
-            <li>Monitoring via CloudWatch Logs, Grafana, Prometheus for proactive issue detection</li>
-            <li>Database diagnostics: PostgreSQL, MongoDB, curl through bastion hosts</li>
+            <li>
+              <span class="cmd-flavor"><span>$</span> aws configure set region ap-south-1</span>
+              Managing AWS infrastructure (Terraform, ECS, CloudWatch) for dev and staging environments
+            </li>
+            <li>
+              <span class="cmd-flavor"><span>$</span> terraform apply --env=staging</span>
+              Infrastructure as Code (IaC) — consistency, repeatability, rollback safety
+            </li>
+            <li>
+              <span class="cmd-flavor"><span>$</span> grafana-cli alerts --watch</span>
+              Monitoring via CloudWatch Logs, Grafana, Prometheus for proactive issue detection
+            </li>
+            <li>
+              <span class="cmd-flavor"><span>$</span> ssh -i key.pem ec2-user@bastion</span>
+              Database diagnostics: PostgreSQL, MongoDB, curl through bastion hosts
+            </li>
           </ul>
         </div>
       </div>
@@ -664,58 +669,59 @@
     <h2 class="section-title reveal"><span class="glitch-text">/ Projects</span></h2>
     
     <div class="projects-grid">
-      <div class="project-card reveal" data-tilt data-tilt-max="15" data-tilt-speed="400" data-tilt-perspective="1000">
-        <span class="proj-label">[ PROJECT_01 ]</span>
+      <div class="project-card reveal">
+        <div class="proj-title-bar"><span>bash — </span> DevOps-QA-Pipeline</div>
         <h3 class="project-title">DevOps-QA Pipeline<span class="cursor">|</span></h3>
         <span class="project-date">May – June 2025</span>
         <p class="project-desc">
           CI/CD pipeline testing Dockerized REST APIs via Jenkins + GitHub triggers. Automated Postman tests via Newman CLI in containers, HTML report generation. Versioned test runs with persistent report storage.
         </p>
         <div class="project-tech">
+          <span class="tech-prefix">$ tech-stack:</span>
           <span class="tech-tag"><i class="devicon-docker-plain"></i> Docker</span>
           <span class="tech-tag"><i class="devicon-jenkins-line"></i> Jenkins</span>
           <span class="tech-tag"><i class="devicon-github-original"></i> GitHub</span>
           <span class="tech-tag">Postman</span>
           <span class="tech-tag">Newman</span>
         </div>
-        <a href="https://github.com/GarvitGoel04/" target="_blank" class="proj-link">→ View on GitHub</a>
+        <a href="https://github.com/GarvitGoel04/" target="_blank" class="proj-link btn">→ View on GitHub</a>
       </div>
 
-      <div class="project-card reveal" data-tilt data-tilt-max="15" data-tilt-speed="400" data-tilt-perspective="1000" data-delay="100">
-        <span class="proj-label">[ PROJECT_02 ]</span>
+      <div class="project-card reveal" data-delay="100">
+        <div class="proj-title-bar"><span>bash — </span> VirtualVeins</div>
         <h3 class="project-title">VirtualVeins<span class="cursor">|</span></h3>
         <span class="project-date">Jan – May 2025</span>
         <p class="project-desc">
           Research: impact of social media on human brain behavior. P-tests and ad-hoc statistical validation on user behavior metrics.
         </p>
         <div class="project-tech">
+          <span class="tech-prefix">$ tech-stack:</span>
           <span class="tech-tag"><i class="devicon-python-plain"></i> Python</span>
           <span class="tech-tag"><i class="devicon-pandas-plain"></i> Pandas</span>
           <span class="tech-tag">Matplotlib</span>
           <span class="tech-tag">SciPy</span>
           <span class="tech-tag">Seaborn</span>
         </div>
-        <a href="https://github.com/GarvitGoel04/" target="_blank" class="proj-link">→ View on GitHub</a>
+        <a href="https://github.com/GarvitGoel04/" target="_blank" class="proj-link btn">→ View on GitHub</a>
       </div>
     </div>
   </section>
 
-  <!-- SKILLS -->
+  <!-- SKILLS (COMPACT TERMINAL) -->
   <section id="skills" class="container">
     <h2 class="section-title reveal"><span class="glitch-text">/ Skills Matrix</span></h2>
     
-    <div class="terminal-window reveal" id="skills-terminal">
-      <div class="terminal-header">
-        <div class="terminal-btn" style="background:#ff5f56"></div>
-        <div class="terminal-btn" style="background:#ffbd2e"></div>
-        <div class="terminal-btn" style="background:#27c93f"></div>
-      </div>
-      <div class="terminal-body" id="term-output">
-        <div style="margin-bottom: 16px;">
-          <span class="term-prompt">guest@garvit-portfolio:~$</span>
-          <span class="term-cmd">ls -la ./skills</span>
+    <div class="skills-terminal reveal" id="skills-terminal">
+      <div class="skills-term-header">
+        <div class="term-dots">
+          <div style="background:#ff5f56"></div>
+          <div style="background:#ffbd2e"></div>
+          <div style="background:#27c93f"></div>
         </div>
-        <!-- Injected via JS on scroll -->
+        <div class="skills-term-title">garvit@omniful:~$</div>
+      </div>
+      <div class="skills-term-body" id="term-output">
+        <!-- Injected via JS -->
       </div>
     </div>
   </section>
@@ -726,7 +732,7 @@
     
     <div class="certs-grid">
       <!-- AWS Dominant Card -->
-      <div class="cert-card-wrapper reveal aws-cert-wrapper aws-cert">
+      <div class="cert-card-wrapper reveal aws-cert-wrapper aws-cert" data-tilt data-tilt-max="5" data-tilt-glare data-tilt-max-glare="0.2">
         <div class="cert-inner">
           <div class="cert-front">
             <div class="aws-text-content">
@@ -742,8 +748,7 @@
         </div>
       </div>
 
-      <!-- Google Card -->
-      <div class="cert-card-wrapper reveal">
+      <div class="cert-card-wrapper reveal" data-tilt data-tilt-max="10">
         <div class="cert-inner">
           <div class="cert-front">
             <i class="fab fa-google"></i>
@@ -756,8 +761,7 @@
         </div>
       </div>
 
-      <!-- Docker Card -->
-      <div class="cert-card-wrapper reveal" data-delay="100">
+      <div class="cert-card-wrapper reveal" data-delay="100" data-tilt data-tilt-max="10">
         <div class="cert-inner">
           <div class="cert-front">
             <i class="devicon-docker-plain"></i>
@@ -770,8 +774,7 @@
         </div>
       </div>
 
-      <!-- K8s Card -->
-      <div class="cert-card-wrapper reveal">
+      <div class="cert-card-wrapper reveal" data-tilt data-tilt-max="10">
         <div class="cert-inner">
           <div class="cert-front">
             <i class="devicon-kubernetes-plain"></i>
@@ -784,8 +787,7 @@
         </div>
       </div>
 
-      <!-- IBM Card -->
-      <div class="cert-card-wrapper reveal" data-delay="100">
+      <div class="cert-card-wrapper reveal" data-delay="100" data-tilt data-tilt-max="10">
         <div class="cert-inner">
           <div class="cert-front">
             <i class="fas fa-cloud"></i>
@@ -813,8 +815,8 @@
       
       <div class="contact-terminal">
         <div class="form-line" style="margin-bottom: 24px;">
-          <span class="term-prompt">guest@garvit-portfolio:~$</span>
-          <span class="term-cmd">send_message --to goelgarvit3104@gmail.com</span>
+          <span class="prompt">garvit@portfolio:~$</span>
+          <span class="cmd-input" style="color:var(--text-primary);">./contact.sh</span>
         </div>
         
         <form id="contact-form">
@@ -855,14 +857,32 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.8.1/vanilla-tilt.min.js"></script>
   
   <script>
-    /* ADD RIPPLE EFFECT TO ALL BUTTONS */
+    /* PRELOADER */
+    const lBar = document.getElementById('l-bar');
+    const lPct = document.getElementById('l-pct');
+    let pct = 0;
+    let blockStr = "";
+    const loaderInt = setInterval(() => {
+      pct += 5;
+      blockStr += "█";
+      lBar.textContent = blockStr;
+      lPct.textContent = pct + "%";
+      if(pct >= 100) {
+        clearInterval(loaderInt);
+        setTimeout(() => {
+          document.getElementById('loading-screen').classList.add('fade-out');
+          setTimeout(animateName, 300);
+        }, 200);
+      }
+    }, 50);
+
+    /* BUTTON RIPPLE EFFECT */
     document.querySelectorAll('.btn').forEach(btn => {
       btn.addEventListener('click', function(e) {
         let x = e.clientX - e.target.getBoundingClientRect().left;
         let y = e.clientY - e.target.getBoundingClientRect().top;
         let ripples = document.createElement('span');
-        ripples.style.left = x + 'px';
-        ripples.style.top = y + 'px';
+        ripples.style.left = x + 'px'; ripples.style.top = y + 'px';
         ripples.classList.add('ripple');
         this.appendChild(ripples);
         setTimeout(() => ripples.remove(), 600);
@@ -872,22 +892,23 @@
     /* CUSTOM CURSOR */
     const cursorDot = document.getElementById('cursor-dot');
     const cursorRing = document.getElementById('cursor-ring');
-    let mouseX = 0, mouseY = 0, ringX = 0, ringY = 0;
+    let mouseX = window.innerWidth/2, mouseY = window.innerHeight/2;
+    let ringX = mouseX, ringY = mouseY;
 
     window.addEventListener('mousemove', (e) => {
       mouseX = e.clientX; mouseY = e.clientY;
-      cursorDot.style.left = mouseX + 'px'; cursorDot.style.top = mouseY + 'px';
+      cursorDot.style.transform = `translate(calc(${mouseX}px - 50%), calc(${mouseY}px - 50%))`;
     });
 
     function animateCursor() {
       ringX += (mouseX - ringX) * 0.2; 
       ringY += (mouseY - ringY) * 0.2;
-      cursorRing.style.left = ringX + 'px'; cursorRing.style.top = ringY + 'px';
+      cursorRing.style.transform = `translate(calc(${ringX}px - 50%), calc(${ringY}px - 50%))`;
       requestAnimationFrame(animateCursor);
     }
-    animateCursor();
+    requestAnimationFrame(animateCursor);
 
-    document.querySelectorAll('a, button, input, textarea').forEach(el => {
+    document.querySelectorAll('a, button, input, textarea, .project-card, .timeline-card').forEach(el => {
       el.addEventListener('mouseenter', () => cursorRing.classList.add('hover'));
       el.addEventListener('mouseleave', () => cursorRing.classList.remove('hover'));
       el.addEventListener('click', () => {
@@ -898,78 +919,69 @@
     });
 
     /* READING PROGRESS & NAVBAR */
+    let scrollTicking = false;
     window.addEventListener('scroll', () => {
-      // Progress
-      let winScroll = document.body.scrollTop || document.documentElement.scrollTop;
-      let height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-      let scrolled = (winScroll / height) * 100;
-      document.getElementById('read-progress').style.width = scrolled + '%';
-      
-      // Navbar
-      const nav = document.getElementById('navbar');
-      if (window.scrollY > 100) nav.classList.add('scrolled');
-      else nav.classList.remove('scrolled');
+      if (!scrollTicking) {
+        window.requestAnimationFrame(() => {
+          let winScroll = window.scrollY;
+          let height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+          document.getElementById('read-progress').style.width = ((winScroll / height) * 100) + '%';
+          
+          const nav = document.getElementById('navbar');
+          if (winScroll > 100) nav.classList.add('scrolled');
+          else nav.classList.remove('scrolled');
+          
+          scrollTicking = false;
+        });
+        scrollTicking = true;
+      }
     });
 
-    /* LOADING SCREEN & NAME ANIMATION */
-    setTimeout(() => {
-      document.getElementById('loading-screen').classList.add('fade-out');
-      setTimeout(animateName, 600);
-    }, 2450);
-
+    /* NAME ANIMATION */
     const nameStrFirst = "GARVIT";
     const nameStrLast = "GOEL";
     const nameContainer = document.getElementById('name-anim');
     
     function animateName() {
-      // GARVIT from left
-      nameStrFirst.split('').forEach((char, i) => {
+      nameStrFirst.split('').forEach(char => {
         const span = document.createElement('span'); span.className = 'name-letter letter-left'; span.textContent = char;
         nameContainer.appendChild(span);
       });
-      // Space
       const space = document.createElement('div'); space.style.width = '24px'; nameContainer.appendChild(space);
-      // GOEL from right
-      nameStrLast.split('').forEach((char, i) => {
+      nameStrLast.split('').forEach(char => {
         const span = document.createElement('span'); span.className = 'name-letter letter-right'; span.textContent = char;
         nameContainer.appendChild(span);
       });
-      
-      // Underline
-      setTimeout(() => {
-        document.getElementById('name-line').classList.add('drawn');
-      }, 800);
+      setTimeout(() => document.getElementById('name-line').classList.add('drawn'), 800);
     }
 
     /* TYPEWRITER GLITCH */
-    const roles = ["DevOps Engineer", "AWS Certified", "Infrastructure Automation", "CI/CD Specialist"];
+    const roles = ["Junior DevOps Engineer", "AWS Certified (SAA-C03)", "Open to Opportunities"];
     let roleIdx = 0;
     const typedEl = document.getElementById('typed-output');
     const chars = "!<>-_\\\\/[]{}—=+*^?#________";
     
     async function typeWriter() {
       const targetWord = roles[roleIdx];
-      // Glitch phase
-      for(let i=0; i<8; i++) {
+      for(let i=0; i<6; i++) {
         let glitch = "";
         for(let j=0; j<targetWord.length; j++) glitch += chars[Math.floor(Math.random() * chars.length)];
         typedEl.textContent = glitch;
-        await new Promise(r => setTimeout(r, 50));
+        await new Promise(r => setTimeout(r, 60));
       }
-      // Settle
       typedEl.textContent = targetWord;
       await new Promise(r => setTimeout(r, 3000));
       typedEl.textContent = "";
       roleIdx = (roleIdx + 1) % roles.length;
       typeWriter();
     }
-    setTimeout(typeWriter, 3500);
+    setTimeout(typeWriter, 2000);
 
     /* 3-LAYER CANVAS BACKGROUND */
     const canvasRadar = document.getElementById('radar-canvas');
-    const ctxRadar = canvasRadar.getContext('2d');
+    const ctxRadar = canvasRadar.getContext('2d', { alpha: true });
     const canvasParticle = document.getElementById('particle-canvas');
-    const ctxParticle = canvasParticle.getContext('2d');
+    const ctxParticle = canvasParticle.getContext('2d', { alpha: true });
     let width, height;
 
     function resizeCanvas() {
@@ -980,15 +992,13 @@
     window.addEventListener('resize', resizeCanvas);
     resizeCanvas();
 
-    // Radar Logic
     let radarPulses = [];
     setInterval(() => {
       radarPulses.push({ x: Math.random()*width, y: Math.random()*height, r: 0, maxR: Math.max(width, height) });
     }, 4000);
 
-    // Particle Logic
     const particles = [];
-    for(let i=0; i<25; i++) {
+    for(let i=0; i<20; i++) { // Max 20
       particles.push({
         x: Math.random()*width, y: Math.random()*height,
         vx: (Math.random()-0.5)*0.5, vy: (Math.random()-0.5)*0.5,
@@ -996,48 +1006,50 @@
       });
     }
 
+    let frameCount = 0;
     function animateCanvas() {
-      // Radar
+      requestAnimationFrame(animateCanvas);
+      
+      // Radar (60fps)
       ctxRadar.clearRect(0, 0, width, height);
       for(let i=radarPulses.length-1; i>=0; i--) {
         let p = radarPulses[i];
         p.r += 2;
         let alpha = Math.max(0, 1 - (p.r / (p.maxR*0.5)));
-        
         ctxRadar.strokeStyle = `rgba(0, 212, 255, ${alpha * 0.3})`;
         ctxRadar.lineWidth = 1;
         ctxRadar.beginPath(); ctxRadar.arc(p.x, p.y, p.r, 0, Math.PI * 2); ctxRadar.stroke();
         ctxRadar.beginPath(); ctxRadar.arc(p.x, p.y, p.r*0.6, 0, Math.PI * 2); ctxRadar.stroke();
         ctxRadar.beginPath(); ctxRadar.arc(p.x, p.y, p.r*0.2, 0, Math.PI * 2); ctxRadar.stroke();
-        
         if(alpha <= 0) radarPulses.splice(i, 1);
       }
 
-      // Particles
-      ctxParticle.clearRect(0, 0, width, height);
-      ctxParticle.fillStyle = 'rgba(0, 212, 255, 0.5)';
-      ctxParticle.strokeStyle = 'rgba(0, 212, 255, 0.15)';
-      ctxParticle.lineWidth = 1;
+      // Particles (30fps to save battery)
+      frameCount++;
+      if (frameCount % 2 === 0) {
+        ctxParticle.clearRect(0, 0, width, height);
+        ctxParticle.fillStyle = 'rgba(0, 212, 255, 0.5)';
+        ctxParticle.strokeStyle = 'rgba(0, 212, 255, 0.15)';
+        ctxParticle.lineWidth = 1;
 
-      for(let i=0; i<particles.length; i++) {
-        let p = particles[i];
-        p.x += p.vx; p.y += p.vy;
-        if(p.x < 0 || p.x > width) p.vx *= -1;
-        if(p.y < 0 || p.y > height) p.vy *= -1;
-        
-        ctxParticle.beginPath(); ctxParticle.arc(p.x, p.y, p.size, 0, Math.PI * 2); ctxParticle.fill();
-        
-        for(let j=i+1; j<particles.length; j++) {
-          let p2 = particles[j];
-          let dist = Math.hypot(p.x-p2.x, p.y-p2.y);
-          if(dist < 120) {
-            ctxParticle.beginPath(); ctxParticle.moveTo(p.x, p.y); ctxParticle.lineTo(p2.x, p2.y); ctxParticle.stroke();
+        for(let i=0; i<particles.length; i++) {
+          let p = particles[i];
+          p.x += p.vx; p.y += p.vy;
+          if(p.x < 0 || p.x > width) p.vx *= -1;
+          if(p.y < 0 || p.y > height) p.vy *= -1;
+          ctxParticle.beginPath(); ctxParticle.arc(p.x, p.y, p.size, 0, Math.PI * 2); ctxParticle.fill();
+          
+          for(let j=i+1; j<particles.length; j++) {
+            let p2 = particles[j];
+            let dist = Math.hypot(p.x-p2.x, p.y-p2.y);
+            if(dist < 120) {
+              ctxParticle.beginPath(); ctxParticle.moveTo(p.x, p.y); ctxParticle.lineTo(p2.x, p2.y); ctxParticle.stroke();
+            }
           }
         }
       }
-      requestAnimationFrame(animateCanvas);
     }
-    animateCanvas();
+    requestAnimationFrame(animateCanvas);
 
     /* HEADING GLITCH REVEAL */
     function glitchScramble(el) {
@@ -1045,122 +1057,121 @@
       el.dataset.glitched = "true";
       const original = el.textContent;
       let iteration = 0;
-      const interval = setInterval(() => {
+      function runGlitch() {
         el.textContent = original.split('').map((char, i) => {
           if(i < iteration) return char;
           return chars[Math.floor(Math.random() * chars.length)];
         }).join('');
-        if(iteration >= original.length) clearInterval(interval);
-        iteration += 1/3;
-      }, 30);
+        if(iteration < original.length) {
+          iteration += 0.5;
+          setTimeout(() => requestAnimationFrame(runGlitch), 30);
+        }
+      }
+      requestAnimationFrame(runGlitch);
     }
 
     /* INTERSECTION OBSERVER REVEALS */
-    const observer = new IntersectionObserver((entries) => {
+    const observer = new IntersectionObserver((entries, obs) => {
       entries.forEach((entry, idx) => {
         if (entry.isIntersecting) {
-          setTimeout(() => { entry.target.classList.add('active'); }, (entry.target.dataset.delay || 0) + (idx * 100));
+          setTimeout(() => { entry.target.classList.add('active'); }, (entry.target.dataset.delay || 0) + (idx * 50));
           const glitchText = entry.target.querySelector('.glitch-text');
           if(glitchText) glitchScramble(glitchText);
+          
+          // Lazy init Vanilla Tilt
+          if(entry.target.hasAttribute('data-tilt')) {
+            VanillaTilt.init(entry.target);
+          }
+          
+          obs.unobserve(entry.target); // Stop observing once visible
         }
       });
-    }, { threshold: 0.1, rootMargin: "0px 0px -50px 0px" });
+    }, { threshold: 0.1, rootMargin: "0px" });
 
     document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
     /* TIMELINE SVG DRAW */
     const timelinePath = document.getElementById('timeline-path');
-    const timelineCards = document.querySelectorAll('.timeline-card');
-    const timelineDots = document.querySelectorAll('.timeline-dot');
-
     window.addEventListener('scroll', () => {
       if(!timelinePath) return;
-      const rect = timelinePath.getBoundingClientRect();
-      const scrollPercent = (window.innerHeight - rect.top) / rect.height;
-      if(scrollPercent > 0) {
-        const draw = 2000 - (scrollPercent * 2000);
-        timelinePath.style.strokeDashoffset = Math.max(0, draw);
-        timelineCards.forEach((card, i) => {
-          if(card.getBoundingClientRect().top < window.innerHeight - 100) {
-            timelineDots[i].classList.add('active'); card.classList.add('active');
-          }
-        });
-      }
+      requestAnimationFrame(() => {
+        const rect = timelinePath.getBoundingClientRect();
+        const scrollPercent = (window.innerHeight - rect.top) / rect.height;
+        if(scrollPercent > 0) {
+          const draw = 2000 - (scrollPercent * 2000);
+          timelinePath.style.strokeDashoffset = Math.max(0, draw);
+        }
+      });
     });
 
-    /* SKILLS TERMINAL */
-    const skillsData = [
-      { type: "d", perms: "drwxr-xr-x", owner: "garvit", size: "4096", date: "Sep 2025", name: "devops-cloud/" },
-      { type: "-", perms: "-rw-r--r--", owner: "garvit", size: "1024", date: "Sep 2025", name: "AWS EC2" },
-      { type: "-", perms: "-rw-r--r--", owner: "garvit", size: "1024", date: "Sep 2025", name: "AWS ECS" },
-      { type: "-", perms: "-rw-r--r--", owner: "garvit", size: "1024", date: "Sep 2025", name: "AWS S3" },
-      { type: "-", perms: "-rw-r--r--", owner: "garvit", size: "1024", date: "Sep 2025", name: "AWS IAM" },
-      { type: "-", perms: "-rw-r--r--", owner: "garvit", size: "1024", date: "Sep 2025", name: "AWS VPC" },
-      { type: "-", perms: "-rw-r--r--", owner: "garvit", size: "1024", date: "Sep 2025", name: "AWS CloudWatch" },
-      { type: "-", perms: "-rw-r--r--", owner: "garvit", size: "1024", date: "Sep 2025", name: "AWS EventBridge" },
-      { type: "-", perms: "-rw-r--r--", owner: "garvit", size: "2048", date: "Sep 2025", name: "Docker" },
-      { type: "-", perms: "-rw-r--r--", owner: "garvit", size: "2048", date: "Sep 2025", name: "Terraform" },
-      { type: "-", perms: "-rw-r--r--", owner: "garvit", size: "2048", date: "Sep 2025", name: "Kubernetes" },
-      { type: "-", perms: "-rwxr-xr-x", owner: "garvit", size: "4096", date: "Sep 2025", name: "Jenkins" },
-      { type: "-", perms: "-rw-r--r--", owner: "garvit", size: "1024", date: "Sep 2025", name: "CI/CD" },
-      { type: "-", perms: "-rw-r--r--", owner: "garvit", size: "1024", date: "Sep 2025", name: "Prometheus" },
-      { type: "-", perms: "-rw-r--r--", owner: "garvit", size: "1024", date: "Sep 2025", name: "Grafana" },
-      { type: "-", perms: "-rw-r--r--", owner: "garvit", size: "1024", date: "Sep 2025", name: "Kafka" },
-      { type: "-", perms: "-rw-r--r--", owner: "garvit", size: "1024", date: "Sep 2025", name: "Linux" },
-      { type: "-", perms: "-rwxr-xr-x", owner: "garvit", size: "1024", date: "Sep 2025", name: "Bash" },
-      { type: "-", perms: "-rw-r--r--", owner: "garvit", size: "1024", date: "Sep 2025", name: "NGINX" },
-      
-      { type: "d", perms: "drwxr-xr-x", owner: "garvit", size: "4096", date: "Sep 2025", name: "programming/" },
-      { type: "-", perms: "-rw-r--r--", owner: "garvit", size: "2048", date: "Sep 2025", name: "Java" },
-      { type: "-", perms: "-rw-r--r--", owner: "garvit", size: "2048", date: "Sep 2025", name: "C" },
-      { type: "-", perms: "-rw-r--r--", owner: "garvit", size: "2048", date: "Sep 2025", name: "C++" },
-      { type: "-", perms: "-rw-r--r--", owner: "garvit", size: "2048", date: "Sep 2025", name: "Data Structures" },
-      { type: "-", perms: "-rw-r--r--", owner: "garvit", size: "2048", date: "Sep 2025", name: "OOPs" },
-      { type: "-", perms: "-rw-r--r--", owner: "garvit", size: "2048", date: "Sep 2025", name: "SQL" },
-      { type: "-", perms: "-rw-r--r--", owner: "garvit", size: "2048", date: "Sep 2025", name: "YAML" },
-      
-      { type: "d", perms: "drwxr-xr-x", owner: "garvit", size: "4096", date: "Sep 2025", name: "tools/" },
-      { type: "-", perms: "-rwxr-xr-x", owner: "garvit", size: "1024", date: "Sep 2025", name: "Git" },
-      { type: "-", perms: "-rw-r--r--", owner: "garvit", size: "1024", date: "Sep 2025", name: "GitHub" },
-      { type: "-", perms: "-rw-r--r--", owner: "garvit", size: "1024", date: "Sep 2025", name: "Redash" },
-      { type: "-", perms: "-rw-r--r--", owner: "garvit", size: "1024", date: "Sep 2025", name: "PostgreSQL" },
-      { type: "-", perms: "-rw-r--r--", owner: "garvit", size: "1024", date: "Sep 2025", name: "MongoDB" },
-      { type: "-", perms: "-rwxr-xr-x", owner: "garvit", size: "1024", date: "Sep 2025", name: "curl" },
-      { type: "-", perms: "-rwxr-xr-x", owner: "garvit", size: "1024", date: "Sep 2025", name: "Postman" },
-      { type: "-", perms: "-rwxr-xr-x", owner: "garvit", size: "1024", date: "Sep 2025", name: "Newman" }
-    ];
+    /* SKILLS TERMINAL (Compact Multi-Column) */
+    const devopsSkills = ["AWS-EC2","AWS-ECS","AWS-S3","AWS-IAM","AWS-VPC","AWS-CloudWatch","AWS-EventBridge","Docker","Terraform","Kubernetes","Jenkins","CI/CD","Prometheus","Grafana","Kafka","Linux","Bash","NGINX"];
+    const progSkills = ["Java","C/C++","Data-Structures","OOPs","SQL","YAML"];
+    const toolsSkills = ["Git","GitHub","Redash","PostgreSQL","MongoDB","curl","Postman","Newman"];
 
     const termOutput = document.getElementById('term-output');
     let skillsPrinted = false;
 
-    const skillsObserver = new IntersectionObserver((entries) => {
+    function buildCategory(title, skillsArray) {
+      const catDiv = document.createElement('div'); catDiv.className = 'skill-category';
+      catDiv.innerHTML = `<div class="cat-cmd"><span class="prompt">$</span> ls -la ${title}</div>`;
+      
+      const grid = document.createElement('div'); grid.className = 'skill-grid';
+      
+      // Group into rows of 3
+      const rows = [];
+      for(let i=0; i<skillsArray.length; i+=3) {
+        const rowSkills = skillsArray.slice(i, i+3);
+        const rowDiv = document.createElement('div'); rowDiv.className = 'skill-row';
+        
+        rowSkills.forEach((s, idx) => {
+          const cell = document.createElement('div'); 
+          cell.className = `skill-cell ${idx === 0 ? 'col-1' : ''}`;
+          cell.textContent = s;
+          
+          // Add hover listeners to the individual cell to highlight its siblings in the same "row"
+          cell.addEventListener('mouseenter', () => {
+             Array.from(rowDiv.children).forEach(c => c.style.background = 'rgba(0, 212, 255, 0.12)');
+             if(rowDiv.children[0]) rowDiv.children[0].style.borderLeftColor = 'var(--accent-primary)';
+          });
+          cell.addEventListener('mouseleave', () => {
+             Array.from(rowDiv.children).forEach(c => c.style.background = 'transparent');
+             if(rowDiv.children[0]) rowDiv.children[0].style.borderLeftColor = 'transparent';
+          });
+          
+          rowDiv.appendChild(cell);
+        });
+        rows.push(rowDiv);
+        grid.appendChild(rowDiv);
+      }
+      catDiv.appendChild(grid);
+      return { catDiv, rows };
+    }
+
+    const skillsObserver = new IntersectionObserver((entries, obs) => {
       if(entries[0].isIntersecting && !skillsPrinted) {
         skillsPrinted = true;
         let delay = 0;
         
-        const totalLine = document.createElement('div');
-        totalLine.className = 'term-line';
-        totalLine.textContent = 'total 128K';
-        termOutput.appendChild(totalLine);
-        setTimeout(() => totalLine.classList.add('printed'), 35);
-        delay += 35;
+        const cats = [
+          buildCategory('~/devops-cloud/', devopsSkills),
+          buildCategory('~/programming/', progSkills),
+          buildCategory('~/tools/', toolsSkills)
+        ];
 
-        skillsData.forEach(skill => {
-          const line = document.createElement('div');
-          line.className = 'term-line';
-          line.innerHTML = `
-            <span class="term-perms">${skill.perms}</span>
-            <span class="term-owner">${skill.owner}</span>
-            <span class="term-size">${skill.size}</span>
-            <span class="term-date">${skill.date}</span>
-            <span class="term-name ${skill.type === 'd' ? 'dir' : ''}">${skill.name}</span>
-          `;
-          termOutput.appendChild(line);
-          setTimeout(() => line.classList.add('printed'), delay);
-          delay += 35; // EXACT 35ms stagger
+        cats.forEach(c => {
+          termOutput.appendChild(c.catDiv);
+          // Stagger row by row
+          c.rows.forEach(row => {
+            setTimeout(() => {
+              Array.from(row.children).forEach(cell => cell.classList.add('printed'));
+            }, delay);
+            delay += 80;
+          });
         });
+        obs.disconnect();
       }
-    }, { threshold: 0.2 });
+    }, { threshold: 0.1 });
     
     const skillsTerm = document.getElementById('skills-terminal');
     if(skillsTerm) skillsObserver.observe(skillsTerm);
