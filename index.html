@@ -16,698 +16,428 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css">
   
   <style>
-    /* Heavenly Aurora Theme Variables */
+    /* Futuristic / Heavenly Variables */
     :root {
-      --bg-base: #f8fafc;
-      --aurora-1: #e0e7ff; /* Soft Blue */
-      --aurora-2: #f3e8ff; /* Soft Purple */
-      --aurora-3: #fce7f3; /* Soft Pink */
-      --aurora-4: #cffafe; /* Soft Cyan */
+      --bg-base: #f4f6fa;
+      --bg-glass: rgba(255, 255, 255, 0.7);
+      --bg-glass-hover: rgba(255, 255, 255, 0.9);
       
-      --text-primary: #0f172a;
-      --text-secondary: #475569;
-      --text-tertiary: #94a3b8;
+      --text-main: #0f172a;
+      --text-muted: #64748b;
       
-      --accent-main: #6366f1; /* Indigo */
-      --accent-gradient: linear-gradient(135deg, #6366f1, #a855f7, #ec4899);
-      
-      --glass-bg: rgba(255, 255, 255, 0.6);
+      /* Vibrant animated gradients */
+      --gradient-1: #3b82f6;
+      --gradient-2: #8b5cf6;
+      --gradient-3: #ec4899;
+      --gradient-4: #06b6d4;
+
       --glass-border: rgba(255, 255, 255, 0.8);
-      --glass-shadow: 0 8px 32px rgba(30, 41, 59, 0.05);
-      
-      --nav-height: 80px;
-      --radius-lg: 24px;
-      --radius-md: 16px;
+      --glass-border-hover: rgba(139, 92, 246, 0.5);
+      --glass-shadow: 0 10px 40px -10px rgba(15, 23, 42, 0.1);
+      --glass-shadow-hover: 0 20px 50px -10px rgba(139, 92, 246, 0.25);
     }
 
-    /* Reset & Base */
-    *, *::before, *::after {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
-    html {
-      scroll-behavior: smooth;
-    }
-
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
     body {
       font-family: 'Inter', sans-serif;
-      color: var(--text-primary);
-      background-color: var(--bg-base);
+      color: var(--text-main);
+      background: var(--bg-base);
       line-height: 1.6;
       overflow-x: hidden;
-      -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
+      cursor: none; /* Custom cursor */
     }
 
-    a { text-decoration: none; color: inherit; }
-    ul { list-style: none; }
-    img { max-width: 100%; display: block; }
-
-    /* Animated Aurora Background */
-    .aurora-bg {
+    /* Custom Cursor */
+    .cursor-dot {
       position: fixed;
-      top: 0; left: 0; right: 0; bottom: 0;
+      top: 0; left: 0;
+      width: 8px; height: 8px;
+      background: var(--gradient-1);
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 9999;
+      transform: translate(-50%, -50%);
+      transition: width 0.2s, height 0.2s;
+      box-shadow: 0 0 15px var(--gradient-1);
+    }
+    .cursor-outline {
+      position: fixed;
+      top: 0; left: 0;
+      width: 40px; height: 40px;
+      border: 2px solid var(--gradient-2);
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 9998;
+      transform: translate(-50%, -50%);
+      transition: width 0.2s, height 0.2s, border-color 0.2s;
+    }
+    body:hover .cursor-dot, body:hover .cursor-outline { opacity: 1; }
+    a:hover ~ .cursor-outline, button:hover ~ .cursor-outline {
+      width: 60px; height: 60px;
+      border-color: var(--gradient-3);
+      background: rgba(236, 72, 153, 0.1);
+    }
+
+    /* Ambient Animated Background (Future Tech) */
+    .ambient-bg {
+      position: fixed;
+      inset: 0;
       z-index: -1;
       overflow: hidden;
-      background: var(--bg-base);
+      background: #f8fafc;
     }
-
-    .aurora-blob {
+    .orb {
       position: absolute;
       border-radius: 50%;
       filter: blur(80px);
-      opacity: 0.8;
-      animation: float-blob 20s infinite alternate ease-in-out;
+      animation: float-orb 25s infinite alternate cubic-bezier(0.45, 0, 0.55, 1);
+      opacity: 0.6;
+    }
+    .orb-1 { width: 50vw; height: 50vw; top: -10%; left: -10%; background: var(--gradient-1); }
+    .orb-2 { width: 60vw; height: 60vw; top: 40%; right: -20%; background: var(--gradient-2); animation-delay: -5s; }
+    .orb-3 { width: 45vw; height: 45vw; bottom: -10%; left: 20%; background: var(--gradient-3); animation-delay: -10s; }
+    .orb-4 { width: 55vw; height: 55vw; top: 20%; left: 40%; background: var(--gradient-4); animation-delay: -15s; }
+
+    @keyframes float-orb {
+      0% { transform: translate(0, 0) scale(1) rotate(0deg); }
+      50% { transform: translate(10%, 10%) scale(1.1) rotate(180deg); }
+      100% { transform: translate(-10%, -5%) scale(0.9) rotate(360deg); }
     }
 
-    .blob-1 { top: -10%; left: -10%; width: 50vw; height: 50vw; background: var(--aurora-1); animation-delay: 0s; }
-    .blob-2 { top: 40%; right: -20%; width: 60vw; height: 60vw; background: var(--aurora-2); animation-delay: -5s; }
-    .blob-3 { bottom: -20%; left: 20%; width: 50vw; height: 50vw; background: var(--aurora-3); animation-delay: -10s; }
-    .blob-4 { top: 20%; left: 40%; width: 40vw; height: 40vw; background: var(--aurora-4); animation-delay: -15s; }
-
-    @keyframes float-blob {
-      0% { transform: translate(0, 0) scale(1); }
-      50% { transform: translate(5%, 10%) scale(1.1); }
-      100% { transform: translate(-5%, -5%) scale(0.9); }
-    }
-
-    /* Glassmorphism Utilities */
-    .glass-panel {
-      background: var(--glass-bg);
+    /* Glass Panels with 3D Tilt */
+    .glass {
+      background: var(--bg-glass);
       backdrop-filter: blur(20px);
       -webkit-backdrop-filter: blur(20px);
       border: 1px solid var(--glass-border);
-      border-radius: var(--radius-lg);
+      border-radius: 24px;
       box-shadow: var(--glass-shadow);
-      transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s ease;
+      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      transform-style: preserve-3d;
     }
-
-    .glass-panel:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 20px 40px rgba(30, 41, 59, 0.08);
+    .glass:hover {
+      background: var(--bg-glass-hover);
+      border-color: var(--glass-border-hover);
+      box-shadow: var(--glass-shadow-hover);
     }
 
     /* Typography */
-    h1, h2, h3, h4, .font-heading {
+    h1, h2, h3, h4, .font-display {
       font-family: 'Outfit', sans-serif;
       font-weight: 700;
       line-height: 1.1;
       letter-spacing: -0.02em;
     }
-
     .text-gradient {
-      background: var(--accent-gradient);
+      background: linear-gradient(135deg, var(--gradient-1), var(--gradient-2), var(--gradient-3));
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
-      background-clip: text;
-      display: inline-block;
+      background-size: 200% 200%;
+      animation: gradient-shift 5s ease infinite;
+    }
+    @keyframes gradient-shift {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
     }
 
-    /* Layout */
-    .container {
-      max-width: 1280px;
-      margin: 0 auto;
-      padding: 0 24px;
-    }
+    .container { max-width: 1280px; margin: 0 auto; padding: 0 24px; }
+    section { padding: 120px 0; position: relative; }
+    .section-title { font-size: clamp(2.5rem, 5vw, 4rem); margin-bottom: 20px; text-align: center; }
 
-    section {
-      padding: 120px 0;
-      position: relative;
-    }
-
-    .section-header {
-      text-align: center;
-      margin-bottom: 64px;
-    }
-
-    .section-title {
-      font-size: clamp(2.5rem, 5vw, 3.5rem);
-      margin-bottom: 16px;
-    }
-
-    .section-subtitle {
-      font-size: 1.125rem;
-      color: var(--text-secondary);
-      max-width: 600px;
-      margin: 0 auto;
-    }
-
-    /* Buttons */
-    .btn {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
-      padding: 16px 32px;
-      border-radius: 100px;
-      font-family: 'Outfit', sans-serif;
-      font-weight: 600;
-      font-size: 1rem;
-      transition: all 0.3s ease;
-      cursor: pointer;
-      border: none;
-      text-decoration: none;
-    }
-
-    .btn-primary {
-      background: var(--accent-gradient);
-      color: white;
-      box-shadow: 0 10px 25px rgba(99, 102, 241, 0.3);
-    }
-
-    .btn-primary:hover {
-      box-shadow: 0 15px 35px rgba(99, 102, 241, 0.4);
-      transform: translateY(-2px);
-    }
-
-    .btn-secondary {
-      background: var(--glass-bg);
-      backdrop-filter: blur(10px);
-      border: 1px solid var(--glass-border);
-      color: var(--text-primary);
-    }
-
-    .btn-secondary:hover {
-      background: white;
-      box-shadow: var(--glass-shadow);
-      transform: translateY(-2px);
-    }
-
-    /* Navigation */
+    /* Nav */
     .navbar {
       position: fixed;
       top: 24px; left: 50%;
       transform: translateX(-50%);
       width: calc(100% - 48px);
       max-width: 800px;
-      height: 64px;
+      height: 70px;
       z-index: 1000;
       border-radius: 100px;
-      padding: 0 24px;
       display: flex;
       align-items: center;
       justify-content: space-between;
+      padding: 0 32px;
+      background: rgba(255, 255, 255, 0.5);
+      backdrop-filter: blur(30px);
+      border: 1px solid rgba(255, 255, 255, 0.8);
+      box-shadow: 0 4px 24px rgba(0,0,0,0.06);
     }
+    .nav-logo { font-family: 'Outfit', sans-serif; font-size: 1.5rem; font-weight: 700; }
+    .nav-links { display: flex; gap: 32px; }
+    .nav-links a { font-weight: 500; color: var(--text-muted); text-decoration: none; transition: color 0.3s; }
+    .nav-links a:hover { color: var(--text-main); }
 
-    .nav-logo {
-      font-family: 'Outfit', sans-serif;
-      font-weight: 700;
-      font-size: 1.25rem;
-      letter-spacing: -0.02em;
-    }
-
-    .nav-links {
-      display: flex;
-      gap: 32px;
-    }
-
-    .nav-links a {
-      font-size: 0.95rem;
-      font-weight: 500;
-      color: var(--text-secondary);
-      transition: color 0.3s ease;
-    }
-
-    .nav-links a:hover {
-      color: var(--accent-main);
-    }
-
-    /* Hero Section */
-    .hero {
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      padding-top: var(--nav-height);
-    }
-
-    .hero-grid {
-      display: grid;
-      grid-template-columns: 1.2fr 1fr;
-      gap: 64px;
-      align-items: center;
-    }
-
-    .hero-content h1 {
-      font-size: clamp(3rem, 7vw, 5.5rem);
-      margin-bottom: 24px;
-    }
-
-    .hero-subtitle {
-      font-size: clamp(1.125rem, 2vw, 1.35rem);
-      color: var(--text-secondary);
-      margin-bottom: 40px;
-      max-width: 540px;
-      line-height: 1.7;
-    }
-
-    .hero-badges {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 12px;
-      margin-bottom: 32px;
-    }
-
-    .badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 8px 16px;
-      background: white;
-      border-radius: 100px;
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.85rem;
-      font-weight: 500;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.03);
-      border: 1px solid rgba(0,0,0,0.05);
-    }
-
-    .badge i { color: var(--accent-main); }
-
-    .hero-image-container {
-      position: relative;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-
-    .profile-glow {
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      background: var(--accent-gradient);
-      border-radius: 50%;
-      filter: blur(60px);
-      opacity: 0.4;
-      animation: pulse-glow 4s infinite alternate;
-    }
-
-    @keyframes pulse-glow {
-      0% { opacity: 0.3; transform: scale(0.95); }
-      100% { opacity: 0.5; transform: scale(1.05); }
-    }
-
-    .profile-img {
-      position: relative;
-      width: 100%;
-      max-width: 440px;
-      aspect-ratio: 1;
-      border-radius: 50%;
-      object-fit: cover;
-      border: 8px solid white;
-      box-shadow: 0 24px 48px rgba(30, 41, 59, 0.12);
-      z-index: 1;
-    }
-
-    .aws-floating-badge {
-      position: absolute;
-      bottom: 30px;
-      right: 10px;
-      z-index: 2;
-      background: white;
-      padding: 12px 24px;
-      border-radius: 100px;
-      box-shadow: 0 12px 32px rgba(245, 158, 11, 0.2);
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      font-family: 'Outfit', sans-serif;
-      font-weight: 600;
-      color: #d97706;
-      border: 1px solid rgba(245, 158, 11, 0.2);
-      animation: float-y 5s infinite ease-in-out;
-    }
-
-    @keyframes float-y {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-15px); }
-    }
-
-    /* Bento Box Layout (About & Stats) */
-    .bento-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      grid-template-rows: repeat(2, auto);
-      gap: 24px;
-    }
-
-    .bento-item {
-      padding: 40px;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-    }
-
-    .bento-about {
-      grid-column: span 2;
-      grid-row: span 2;
-    }
-
-    .bento-about h3 {
-      font-size: 2.25rem;
-      margin-bottom: 24px;
-    }
-
-    .bento-about p {
-      font-size: 1.1rem;
-      color: var(--text-secondary);
-      line-height: 1.8;
-      margin-bottom: 24px;
-    }
-
-    .bento-stat {
-      text-align: center;
-    }
-
-    .stat-number {
-      font-size: 4rem;
-      line-height: 1;
-      margin-bottom: 8px;
-    }
-
-    .stat-label {
-      font-size: 1rem;
-      font-weight: 500;
-      color: var(--text-secondary);
-    }
-
-    /* Experience Timeline */
-    .timeline {
-      max-width: 800px;
-      margin: 0 auto;
-      position: relative;
-    }
-
-    .timeline::before {
-      content: '';
-      position: absolute;
-      top: 0; left: 40px;
-      height: 100%;
-      width: 2px;
-      background: linear-gradient(to bottom, var(--accent-main), rgba(99, 102, 241, 0));
-    }
-
-    .timeline-item {
-      position: relative;
-      padding-left: 100px;
-      margin-bottom: 48px;
-    }
-
-    .timeline-dot {
-      position: absolute;
-      left: 31px; top: 0;
-      width: 20px; height: 20px;
-      background: white;
-      border: 4px solid var(--accent-main);
-      border-radius: 50%;
-      box-shadow: 0 0 0 6px rgba(99, 102, 241, 0.1);
-    }
-
-    .timeline-date {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.9rem;
-      font-weight: 600;
-      color: var(--accent-main);
-      margin-bottom: 12px;
-      display: block;
-    }
-
-    .timeline-card h3 {
-      font-size: 1.5rem;
-      margin-bottom: 4px;
-    }
-
-    .timeline-card h4 {
-      font-size: 1.1rem;
-      color: var(--text-secondary);
-      font-weight: 400;
-      margin-bottom: 16px;
-    }
-
-    .timeline-card p {
-      color: var(--text-secondary);
-    }
-
-    /* Skills */
-    .skills-wrapper {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 16px;
-      justify-content: center;
-      max-width: 900px;
-      margin: 0 auto;
-    }
-
-    .skill-pill {
-      background: white;
-      border: 1px solid rgba(0,0,0,0.05);
-      padding: 16px 24px;
-      border-radius: 100px;
-      font-family: 'Outfit', sans-serif;
-      font-size: 1.1rem;
-      font-weight: 500;
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.02);
+    /* Buttons */
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center; gap: 12px;
+      padding: 16px 36px; border-radius: 100px; font-family: 'Outfit', sans-serif;
+      font-weight: 600; font-size: 1.1rem; border: none; cursor: none;
       transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      text-decoration: none; position: relative; overflow: hidden;
     }
+    .btn-primary {
+      background: linear-gradient(135deg, var(--gradient-1), var(--gradient-2));
+      color: white; box-shadow: 0 10px 30px rgba(139, 92, 246, 0.3);
+    }
+    .btn-primary::before {
+      content: ''; position: absolute; inset: 0;
+      background: linear-gradient(135deg, var(--gradient-2), var(--gradient-3));
+      opacity: 0; transition: opacity 0.3s;
+    }
+    .btn-primary:hover::before { opacity: 1; }
+    .btn-primary span, .btn-primary i { position: relative; z-index: 1; }
+    .btn-primary:hover { transform: translateY(-4px) scale(1.02); box-shadow: 0 20px 40px rgba(139, 92, 246, 0.4); }
 
+    /* Hero */
+    .hero { min-height: 100vh; display: flex; align-items: center; padding-top: 100px; }
+    .hero-grid { display: grid; grid-template-columns: 1.2fr 1fr; gap: 64px; align-items: center; }
+    .hero-content h1 { font-size: clamp(3.5rem, 6vw, 5.5rem); margin-bottom: 24px; }
+    .typewriter-text { font-family: 'JetBrains Mono', monospace; color: var(--gradient-2); font-size: 1.25rem; font-weight: 600; min-height: 2em; margin-bottom: 24px; display: flex; align-items: center; gap: 8px;}
+    .typewriter-cursor { width: 3px; height: 1.2em; background: var(--gradient-2); animation: blink 1s infinite; }
+    @keyframes blink { 50% { opacity: 0; } }
+    .hero-subtitle { font-size: 1.25rem; color: var(--text-muted); margin-bottom: 40px; max-width: 540px; }
+    
+    .profile-wrap { position: relative; display: flex; justify-content: center; align-items: center; perspective: 1000px; }
+    .profile-glow-ring {
+      position: absolute; width: 440px; height: 440px; border-radius: 50%;
+      background: conic-gradient(from 0deg, var(--gradient-1), var(--gradient-2), var(--gradient-3), var(--gradient-1));
+      animation: spin 4s linear infinite; filter: blur(30px); opacity: 0.6; z-index: 0;
+    }
+    @keyframes spin { 100% { transform: rotate(360deg); } }
+    .profile-img {
+      width: 400px; height: 400px; border-radius: 50%; object-fit: cover;
+      border: 8px solid white; box-shadow: 0 30px 60px rgba(0,0,0,0.15);
+      position: relative; z-index: 1; transition: transform 0.3s;
+    }
+    .floating-badge {
+      position: absolute; bottom: 30px; right: 0; z-index: 2;
+      background: rgba(255,255,255,0.9); backdrop-filter: blur(10px);
+      padding: 16px 28px; border-radius: 100px; display: flex; align-items: center; gap: 12px;
+      font-family: 'Outfit', sans-serif; font-weight: 700; color: #f59e0b;
+      box-shadow: 0 20px 40px rgba(245, 158, 11, 0.2);
+      animation: float-y 4s ease-in-out infinite; border: 1px solid rgba(245, 158, 11, 0.3);
+    }
+    @keyframes float-y { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-20px); } }
+
+    /* Bento Stats */
+    .bento-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; margin-top: 60px; }
+    .bento-stat { padding: 40px; text-align: center; display: flex; flex-direction: column; justify-content: center; align-items: center; }
+    .stat-num { font-size: 3.5rem; font-weight: 700; line-height: 1; margin-bottom: 12px; font-family: 'Outfit', sans-serif; }
+    .stat-label { font-size: 1rem; color: var(--text-muted); font-weight: 500; }
+
+    /* Resume Data Layouts */
+    .resume-section { display: grid; grid-template-columns: 300px 1fr; gap: 64px; }
+    .resume-section-title { position: sticky; top: 120px; height: fit-content; }
+    .resume-list { display: flex; flex-direction: column; gap: 32px; }
+    
+    .resume-card { padding: 40px; }
+    .resume-card h3 { font-size: 1.5rem; margin-bottom: 8px; color: var(--text-main); }
+    .resume-card h4 { font-size: 1.1rem; color: var(--gradient-2); margin-bottom: 16px; font-family: 'Inter', sans-serif; font-weight: 500; }
+    .resume-date { font-family: 'JetBrains Mono', monospace; font-size: 0.9rem; color: var(--text-muted); margin-bottom: 24px; display: block; }
+    .resume-card ul { list-style: none; }
+    .resume-card ul li { position: relative; padding-left: 24px; margin-bottom: 12px; color: var(--text-muted); font-size: 1.05rem; }
+    .resume-card ul li::before { content: '▹'; position: absolute; left: 0; color: var(--gradient-2); font-weight: bold; }
+
+    /* Skills Pill */
+    .skills-grid { display: flex; flex-wrap: wrap; gap: 16px; }
+    .skill-pill {
+      background: white; padding: 16px 28px; border-radius: 100px;
+      font-family: 'JetBrains Mono', monospace; font-size: 1rem; font-weight: 500;
+      display: flex; align-items: center; gap: 12px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.03); border: 1px solid rgba(0,0,0,0.05);
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1); cursor: none;
+    }
     .skill-pill:hover {
-      transform: translateY(-4px) scale(1.05);
-      box-shadow: 0 12px 24px rgba(0,0,0,0.06);
-      border-color: var(--accent-main);
-      color: var(--accent-main);
+      transform: translateY(-5px) scale(1.05);
+      border-color: var(--gradient-1); color: var(--gradient-1);
+      box-shadow: 0 15px 30px rgba(59, 130, 246, 0.15);
     }
+    .skill-pill i { font-size: 1.5rem; }
 
-    .skill-pill i { font-size: 1.4rem; }
+    /* Certifications Grid */
+    .cert-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 24px; }
+    .cert-card { padding: 32px; display: flex; flex-direction: column; justify-content: center; }
+    .cert-card i { font-size: 2.5rem; margin-bottom: 20px; color: var(--gradient-1); }
+    .cert-card h3 { font-size: 1.25rem; margin-bottom: 8px; }
+    .cert-card p { color: var(--text-muted); font-size: 0.95rem; font-family: 'JetBrains Mono', monospace; }
 
-    /* Projects */
-    .projects-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
-      gap: 32px;
-    }
-
-    .project-card {
-      padding: 40px;
-      display: flex;
-      flex-direction: column;
-      height: 100%;
-    }
-
-    .project-icon {
-      width: 64px; height: 64px;
-      background: var(--bg-base);
-      border-radius: 16px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.75rem;
-      color: var(--accent-main);
-      margin-bottom: 24px;
-      box-shadow: inset 0 2px 4px rgba(0,0,0,0.02);
-    }
-
-    .project-card h3 {
-      font-size: 1.5rem;
-      margin-bottom: 12px;
-    }
-
-    .project-card p {
-      color: var(--text-secondary);
-      margin-bottom: 24px;
-      flex-grow: 1;
-    }
-
-    .project-tech {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-    }
-
-    .tech-tag {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.75rem;
-      padding: 6px 12px;
-      background: rgba(99, 102, 241, 0.08);
-      color: var(--accent-main);
-      border-radius: 6px;
-    }
-
-    /* Footer / Contact */
-    .contact-section {
-      text-align: center;
-      padding: 120px 0 60px;
-    }
-
-    .contact-box {
-      max-width: 600px;
-      margin: 0 auto;
-      padding: 56px;
-    }
-
-    .social-links {
-      display: flex;
-      justify-content: center;
-      gap: 24px;
-      margin-top: 40px;
-    }
-
-    .social-btn {
-      width: 56px; height: 56px;
-      border-radius: 50%;
-      background: white;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.25rem;
-      color: var(--text-primary);
-      box-shadow: 0 8px 24px rgba(0,0,0,0.04);
-      transition: all 0.3s ease;
-    }
-
-    .social-btn:hover {
-      background: var(--accent-gradient);
-      color: white;
-      transform: translateY(-4px);
-    }
-
-    .copyright {
-      margin-top: 60px;
-      color: var(--text-tertiary);
-      font-size: 0.9rem;
-    }
-
-    /* Scroll Reveals */
-    .reveal {
-      opacity: 0;
-      transform: translateY(30px);
-      transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-
-    .reveal.active {
-      opacity: 1;
-      transform: translateY(0);
-    }
+    /* Reveal Animations */
+    .reveal { opacity: 0; transform: translateY(40px); transition: all 1s cubic-bezier(0.16, 1, 0.3, 1); }
+    .reveal.active { opacity: 1; transform: translateY(0); }
 
     /* Responsive */
     @media (max-width: 1024px) {
-      .hero-grid { grid-template-columns: 1fr; text-align: center; gap: 48px; }
+      .hero-grid, .resume-section { grid-template-columns: 1fr; gap: 48px; }
+      .resume-section-title { position: static; text-align: center; }
+      .hero-content { text-align: center; }
       .hero-subtitle { margin: 0 auto 40px; }
-      .hero-badges { justify-content: center; }
-      .bento-grid { grid-template-columns: 1fr; }
-      .bento-about { grid-column: span 1; grid-row: span 1; }
+      .typewriter-text { justify-content: center; }
+      .bento-grid { grid-template-columns: repeat(2, 1fr); }
     }
-
     @media (max-width: 768px) {
       .nav-links { display: none; }
-      .timeline::before { left: 20px; }
-      .timeline-item { padding-left: 60px; }
-      .timeline-dot { left: 11px; }
+      .bento-grid { grid-template-columns: 1fr; }
+      .profile-img, .profile-glow-ring { width: 300px; height: 300px; }
       .section-title { font-size: 2.5rem; }
     }
   </style>
 </head>
 <body>
 
-  <!-- Animated Aurora Background -->
-  <div class="aurora-bg">
-    <div class="aurora-blob blob-1"></div>
-    <div class="aurora-blob blob-2"></div>
-    <div class="aurora-blob blob-3"></div>
-    <div class="aurora-blob blob-4"></div>
+  <!-- Custom Cursor -->
+  <div class="cursor-dot"></div>
+  <div class="cursor-outline"></div>
+
+  <!-- Ambient Future Background -->
+  <div class="ambient-bg">
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+    <div class="orb orb-4"></div>
   </div>
 
-  <!-- Navigation -->
-  <nav class="navbar glass-panel">
-    <div class="nav-logo">Garvit.</div>
+  <!-- Navbar -->
+  <nav class="navbar">
+    <div class="nav-logo">Garvit<span class="text-gradient">.</span></div>
     <div class="nav-links">
       <a href="#about">About</a>
       <a href="#experience">Experience</a>
-      <a href="#skills">Skills</a>
+      <a href="#education">Education</a>
       <a href="#projects">Projects</a>
+      <a href="#skills">Skills</a>
     </div>
   </nav>
 
-  <!-- Hero Section -->
+  <!-- Hero -->
   <section class="hero container">
     <div class="hero-grid">
       <div class="hero-content reveal">
-        <div class="hero-badges">
-          <div class="badge"><i class="fas fa-terminal"></i> DevOps Engineer</div>
-          <div class="badge"><i class="fas fa-cloud"></i> AWS Certified</div>
+        <div class="typewriter-text">
+          > <span id="typewriter"></span><span class="typewriter-cursor"></span>
         </div>
-        <h1>Architecting <br><span class="text-gradient">Heavenly</span> Cloud Solutions.</h1>
+        <h1>Architecting the <br><span class="text-gradient">Future of Cloud</span></h1>
         <p class="hero-subtitle">
-          I'm Garvit Goel, a DevOps Engineer specializing in scalable AWS infrastructure, CI/CD automation, and modern observability stacks.
+          I'm Garvit Goel, an AWS Certified Solutions Architect engineering highly scalable infrastructure and fully automated CI/CD pipelines.
         </p>
-        <div style="display: flex; gap: 16px; flex-wrap: wrap;">
-          <a href="#projects" class="btn btn-primary">View My Work <i class="fas fa-arrow-right"></i></a>
-          <a href="mailto:goelgarvit3104@gmail.com" class="btn btn-secondary">Contact Me <i class="fas fa-envelope"></i></a>
-        </div>
+        <a href="#projects" class="btn btn-primary">
+          <span>Explore My Work</span> <i class="fas fa-arrow-right"></i>
+        </a>
       </div>
-      <div class="hero-image-container reveal" style="transition-delay: 0.2s;">
-        <div class="profile-glow"></div>
-        <!-- USING THE RAW GITHUB URL TO GUARANTEE IT WORKS -->
+      <div class="profile-wrap reveal" data-tilt data-tilt-max="10" data-tilt-speed="400" data-tilt-perspective="1000">
+        <div class="profile-glow-ring"></div>
         <img src="https://raw.githubusercontent.com/GarvitGoel04/portfolio/main/Profile_pic.jpeg" alt="Garvit Goel" class="profile-img">
-        <div class="aws-floating-badge">
-          <i class="fab fa-aws" style="font-size: 1.5rem;"></i>
-          <span>Solutions Architect</span>
+        <div class="floating-badge">
+          <i class="fab fa-aws" style="font-size: 2rem;"></i>
+          <div>
+            <div style="font-size: 0.8rem; color: var(--text-muted); line-height: 1;">AWS Certified</div>
+            <div style="line-height: 1.2;">Solutions Architect</div>
+          </div>
         </div>
       </div>
     </div>
-  </section>
 
-  <!-- About & Stats (Bento Grid) -->
-  <section id="about" class="container">
-    <div class="bento-grid">
-      <div class="bento-item glass-panel bento-about reveal">
-        <h3>About Me</h3>
-        <p>
-          I thrive at the intersection of development and operations. With hands-on production experience managing AWS infrastructure (ECS, EC2, S3, Terraform) at an AI-based SaaS company, I ensure systems are highly available, scalable, and secure.
-        </p>
-        <p>
-          My philosophy is simple: automate everything, monitor proactively, and build resilient architectures that let developers focus on writing great code.
-        </p>
+    <!-- Bento Stats -->
+    <div class="bento-grid" id="about">
+      <div class="glass bento-stat reveal" data-tilt data-tilt-scale="1.05">
+        <div class="stat-num text-gradient">8</div>
+        <div class="stat-label">Months Prod Exp</div>
       </div>
-      <div class="bento-item glass-panel bento-stat reveal" style="transition-delay: 0.1s;">
-        <div class="stat-number text-gradient">8</div>
-        <div class="stat-label">Months Experience</div>
+      <div class="glass bento-stat reveal" data-tilt data-tilt-scale="1.05" style="transition-delay: 0.1s;">
+        <div class="stat-num text-gradient">2</div>
+        <div class="stat-label">Major Projects</div>
       </div>
-      <div class="bento-item glass-panel bento-stat reveal" style="transition-delay: 0.2s;">
-        <div class="stat-number text-gradient">3+</div>
-        <div class="stat-label">Major Architectures</div>
+      <div class="glass bento-stat reveal" data-tilt data-tilt-scale="1.05" style="transition-delay: 0.2s;">
+        <div class="stat-num text-gradient">5</div>
+        <div class="stat-label">Certifications</div>
+      </div>
+      <div class="glass bento-stat reveal" data-tilt data-tilt-scale="1.05" style="transition-delay: 0.3s;">
+        <div class="stat-num text-gradient">7.9</div>
+        <div class="stat-label">B.Tech CGPA</div>
       </div>
     </div>
   </section>
 
-  <!-- Experience -->
+  <!-- Work Experience -->
   <section id="experience" class="container">
-    <div class="section-header reveal">
-      <h2 class="section-title">Professional <span class="text-gradient">Journey</span></h2>
-      <p class="section-subtitle">My hands-on experience building and maintaining production-grade infrastructure.</p>
-    </div>
-    
-    <div class="timeline">
-      <div class="timeline-item reveal">
-        <div class="timeline-dot"></div>
-        <div class="glass-panel timeline-card">
-          <span class="timeline-date">Nov 2023 – Present</span>
-          <h3>DevOps Engineer</h3>
-          <h4>AI-based SaaS Company</h4>
-          <p>Managed complete AWS infrastructure including ECS, EC2, S3, and CloudWatch across dev and staging environments. Implemented robust CI/CD pipelines using Jenkins and automated infrastructure provisioning using Terraform. Established proactive system monitoring using Prometheus and Grafana.</p>
+    <div class="resume-section">
+      <div class="resume-section-title reveal">
+        <h2 class="section-title" style="text-align: left;">Work <br><span class="text-gradient">Experience</span></h2>
+      </div>
+      <div class="resume-list">
+        <div class="glass resume-card reveal" data-tilt data-tilt-glare data-tilt-max-glare="0.2">
+          <span class="resume-date">Sept 2025 – Present</span>
+          <h3>Junior DevOps Engineer</h3>
+          <h4>Omniful AI, Gurugram (Onsite)</h4>
+          <ul>
+            <li>Managing AWS infrastructure for development and staging environments using Terraform, ECS, and CloudWatch to ensure reliable deployments.</li>
+            <li>Implemented and maintained services using Infrastructure as Code (IaC), improving consistency, repeatability, and rollback safety.</li>
+            <li>Monitoring application health, logs, and ECS alerts using CloudWatch Logs, Grafana, and Prometheus for proactive issue detection.</li>
+            <li>Executed database queries and service-level diagnostics using PostgreSQL, MongoDB, and curl via bastion hosts.</li>
+          </ul>
         </div>
       </div>
-      
-      <div class="timeline-item reveal">
-        <div class="timeline-dot"></div>
-        <div class="glass-panel timeline-card">
-          <span class="timeline-date">2019 – 2023</span>
-          <h3>B.Tech in Computer Science</h3>
-          <h4>University</h4>
-          <p>Graduated with a strong foundation in computer science, software engineering principles, and distributed systems. Participated in multiple cloud architecture hackathons.</p>
+    </div>
+  </section>
+
+  <!-- Projects -->
+  <section id="projects" class="container">
+    <div class="resume-section">
+      <div class="resume-section-title reveal">
+        <h2 class="section-title" style="text-align: left;">Featured <br><span class="text-gradient">Projects</span></h2>
+      </div>
+      <div class="resume-list">
+        <div class="glass resume-card reveal" data-tilt data-tilt-glare data-tilt-max-glare="0.2">
+          <span class="resume-date">May 2025 – June 2025</span>
+          <h3>DevOps-QA Pipeline</h3>
+          <h4>Docker, Jenkins, Postman, Newman, GitHub</h4>
+          <ul>
+            <li>Developed a CI/CD pipeline to test Dockerized REST APIs using Jenkins and GitHub triggers.</li>
+            <li>Automated Postman tests via Newman CLI inside containers with HTML report generation.</li>
+            <li>Enabled versioned test runs and persistent report storage, simulating real-world QA workflows.</li>
+          </ul>
+        </div>
+        <div class="glass resume-card reveal" data-tilt data-tilt-glare data-tilt-max-glare="0.2">
+          <span class="resume-date">Jan 2025 – May 2025</span>
+          <h3>VirtualVeins</h3>
+          <h4>Python, Pandas, Matplotlib, SciPy, Seaborn</h4>
+          <ul>
+            <li>Final-year research-based project studying the impact of social media on the human brain.</li>
+            <li>Generated visual graphs and performed statistical validation including P-tests and ad-hoc tests on user behavior metrics.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Education -->
+  <section id="education" class="container">
+    <div class="resume-section">
+      <div class="resume-section-title reveal">
+        <h2 class="section-title" style="text-align: left;">Academic <br><span class="text-gradient">Background</span></h2>
+      </div>
+      <div class="resume-list">
+        <div class="glass resume-card reveal" data-tilt data-tilt-max="5">
+          <span class="resume-date">Oct 2021 – Sep 2025</span>
+          <h3>B.Tech in Computer Science and Design</h3>
+          <h4>IMS Engineering College, Ghaziabad, UP</h4>
+          <p style="color: var(--text-muted); font-size: 1.1rem; font-weight: 600;">CGPA: 7.9</p>
+        </div>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 32px;">
+          <div class="glass resume-card reveal" data-tilt data-tilt-max="5">
+            <span class="resume-date">March 2021</span>
+            <h3>Higher Secondary (12th)</h3>
+            <h4>SD Public School, Muzaffarnagar</h4>
+            <p style="color: var(--text-muted); font-size: 1.1rem; font-weight: 600;">84.8%</p>
+          </div>
+          <div class="glass resume-card reveal" data-tilt data-tilt-max="5">
+            <span class="resume-date">March 2019</span>
+            <h3>Secondary (10th)</h3>
+            <h4>SD Public School, Muzaffarnagar</h4>
+            <p style="color: var(--text-muted); font-size: 1.1rem; font-weight: 600;">84.8%</p>
+          </div>
         </div>
       </div>
     </div>
@@ -715,98 +445,140 @@
 
   <!-- Skills -->
   <section id="skills" class="container">
-    <div class="section-header reveal">
-      <h2 class="section-title">Technical <span class="text-gradient">Arsenal</span></h2>
-      <p class="section-subtitle">The tools and technologies I use to build scalable systems.</p>
-    </div>
-    
-    <div class="skills-wrapper">
-      <div class="skill-pill reveal"><i class="devicon-amazonwebservices-plain colored"></i> AWS</div>
-      <div class="skill-pill reveal"><i class="devicon-terraform-plain colored"></i> Terraform</div>
+    <h2 class="section-title reveal">Technical <span class="text-gradient">Arsenal</span></h2>
+    <div class="skills-grid" style="margin-top: 60px;">
+      <div class="skill-pill reveal"><i class="devicon-amazonwebservices-plain colored"></i> AWS (EC2, ECS, S3, IAM, VPC)</div>
       <div class="skill-pill reveal"><i class="devicon-docker-plain colored"></i> Docker</div>
-      <div class="skill-pill reveal"><i class="devicon-kubernetes-plain colored"></i> Kubernetes</div>
-      <div class="skill-pill reveal"><i class="devicon-jenkins-line colored"></i> Jenkins</div>
-      <div class="skill-pill reveal"><i class="devicon-git-plain colored"></i> Git Actions</div>
-      <div class="skill-pill reveal"><i class="devicon-prometheus-original colored"></i> Prometheus</div>
-      <div class="skill-pill reveal"><i class="devicon-grafana-original colored"></i> Grafana</div>
-      <div class="skill-pill reveal"><i class="devicon-linux-plain"></i> Linux</div>
+      <div class="skill-pill reveal"><i class="devicon-kubernetes-plain colored"></i> Kubernetes (Basics)</div>
+      <div class="skill-pill reveal"><i class="devicon-terraform-plain colored"></i> Terraform</div>
+      <div class="skill-pill reveal"><i class="devicon-jenkins-line colored"></i> Jenkins (CI/CD)</div>
+      <div class="skill-pill reveal"><i class="devicon-prometheus-original colored"></i> Prometheus & Grafana</div>
+      <div class="skill-pill reveal"><i class="devicon-apachekafka-original colored"></i> Kafka</div>
+      <div class="skill-pill reveal"><i class="devicon-linux-plain"></i> Linux & Bash</div>
+      <div class="skill-pill reveal"><i class="devicon-java-plain colored"></i> Java</div>
+      <div class="skill-pill reveal"><i class="devicon-cplusplus-plain colored"></i> C/C++</div>
       <div class="skill-pill reveal"><i class="devicon-python-plain colored"></i> Python</div>
-      <div class="skill-pill reveal"><i class="devicon-bash-plain"></i> Bash Scripting</div>
+      <div class="skill-pill reveal"><i class="devicon-git-plain colored"></i> Git & GitHub</div>
+      <div class="skill-pill reveal"><i class="devicon-mysql-plain colored"></i> SQL</div>
+      <div class="skill-pill reveal"><i class="devicon-nginx-original colored"></i> NGINX</div>
     </div>
   </section>
 
-  <!-- Projects -->
-  <section id="projects" class="container">
-    <div class="section-header reveal">
-      <h2 class="section-title">Featured <span class="text-gradient">Projects</span></h2>
-      <p class="section-subtitle">Real-world implementations of modern DevOps practices.</p>
-    </div>
-
-    <div class="projects-grid">
-      <div class="glass-panel project-card reveal">
-        <div class="project-icon"><i class="fas fa-server"></i></div>
-        <h3>Scalable E-Commerce Infrastructure</h3>
-        <p>Architected a highly available web architecture on AWS utilizing Auto Scaling Groups, Application Load Balancers, and RDS Multi-AZ deployments. Handled simulated traffic spikes of 10k+ concurrent users with zero downtime.</p>
-        <div class="project-tech">
-          <span class="tech-tag">AWS EC2</span>
-          <span class="tech-tag">ALB</span>
-          <span class="tech-tag">Terraform</span>
-        </div>
+  <!-- Certifications -->
+  <section class="container" style="padding-bottom: 120px;">
+    <h2 class="section-title reveal">Global <span class="text-gradient">Certifications</span></h2>
+    <div class="cert-grid" style="margin-top: 60px;">
+      <div class="glass cert-card reveal" data-tilt data-tilt-scale="1.05">
+        <i class="fab fa-aws"></i>
+        <h3>AWS Certified Solutions Architect – Associate (SAA-C03)</h3>
+        <p>Sep 2025 (Cleared on first attempt)</p>
       </div>
-
-      <div class="glass-panel project-card reveal" style="transition-delay: 0.1s;">
-        <div class="project-icon"><i class="fas fa-network-wired"></i></div>
-        <h3>Automated Microservices Pipeline</h3>
-        <p>Built an end-to-end CI/CD pipeline for a containerized microservices application. Automated building, testing, and pushing Docker images to ECR, followed by automated rolling deployments to an ECS cluster.</p>
-        <div class="project-tech">
-          <span class="tech-tag">Jenkins</span>
-          <span class="tech-tag">Docker</span>
-          <span class="tech-tag">ECS</span>
-        </div>
+      <div class="glass cert-card reveal" data-tilt data-tilt-scale="1.05">
+        <i class="fab fa-google"></i>
+        <h3>Google: Git and GitHub</h3>
+        <p>Sep 2025</p>
+      </div>
+      <div class="glass cert-card reveal" data-tilt data-tilt-scale="1.05">
+        <i class="devicon-docker-plain colored"></i>
+        <h3>Docker</h3>
+        <p>KodeKloud, Sep 2024</p>
+      </div>
+      <div class="glass cert-card reveal" data-tilt data-tilt-scale="1.05">
+        <i class="devicon-kubernetes-plain colored"></i>
+        <h3>Kubernetes Hands-On</h3>
+        <p>KodeKloud, Sep 2024</p>
+      </div>
+      <div class="glass cert-card reveal" data-tilt data-tilt-scale="1.05">
+        <i class="fas fa-cloud"></i>
+        <h3>Introduction to Cloud Computing</h3>
+        <p>IBM, May 2024</p>
       </div>
     </div>
   </section>
 
-  <!-- Contact / Footer -->
-  <section id="contact" class="contact-section container">
-    <div class="glass-panel contact-box reveal">
-      <h2 class="section-title">Let's Build Together</h2>
-      <p class="section-subtitle" style="margin-bottom: 32px;">Currently open for new opportunities and collaborations.</p>
+  <!-- Contact Footer -->
+  <footer style="padding: 80px 0; text-align: center; border-top: 1px solid var(--glass-border);">
+    <div class="container">
+      <h2 class="font-display" style="font-size: 3rem; margin-bottom: 24px;">Ready to scale?</h2>
+      <a href="mailto:goelgarvit3104@gmail.com" class="btn btn-primary" style="margin-bottom: 48px;">Get In Touch</a>
       
-      <a href="mailto:goelgarvit3104@gmail.com" class="btn btn-primary" style="font-size: 1.125rem; padding: 20px 40px;">
-        Say Hello <i class="fas fa-paper-plane"></i>
-      </a>
-
-      <div class="social-links">
-        <a href="https://github.com/GarvitGoel04/" target="_blank" class="social-btn"><i class="fab fa-github"></i></a>
-        <a href="https://www.linkedin.com/in/garvitgoel04/" target="_blank" class="social-btn"><i class="fab fa-linkedin-in"></i></a>
-        <a href="tel:+919548016026" class="social-btn"><i class="fas fa-phone"></i></a>
+      <div style="display: flex; justify-content: center; gap: 24px; margin-bottom: 48px;">
+        <a href="https://github.com/GarvitGoel04/" target="_blank" style="font-size: 1.5rem; color: var(--text-main); transition: transform 0.3s;"><i class="fab fa-github"></i></a>
+        <a href="https://www.linkedin.com/in/garvitgoel04/" target="_blank" style="font-size: 1.5rem; color: var(--text-main); transition: transform 0.3s;"><i class="fab fa-linkedin-in"></i></a>
+        <a href="tel:+919548016026" style="font-size: 1.5rem; color: var(--text-main); transition: transform 0.3s;"><i class="fas fa-phone"></i></a>
       </div>
+      
+      <p style="color: var(--text-muted); font-size: 0.9rem;">© 2026 Garvit Goel. Built with precision & automation.</p>
     </div>
+  </footer>
 
-    <p class="copyright">© 2026 Garvit Goel. Designed with pristine precision.</p>
-  </section>
-
-  <!-- JavaScript for Scroll Reveals -->
+  <!-- Scripts for Animations -->
+  <!-- Vanilla-Tilt.js for 3D effects -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.8.0/vanilla-tilt.min.js"></script>
+  
   <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      const reveals = document.querySelectorAll('.reveal');
+    // Custom Cursor tracking
+    const cursorDot = document.querySelector('.cursor-dot');
+    const cursorOutline = document.querySelector('.cursor-outline');
+    
+    window.addEventListener('mousemove', (e) => {
+      const posX = e.clientX;
+      const posY = e.clientY;
       
-      const revealOnScroll = () => {
-        const windowHeight = window.innerHeight;
-        const elementVisible = 100;
-        
-        reveals.forEach(reveal => {
-          const elementTop = reveal.getBoundingClientRect().top;
-          if (elementTop < windowHeight - elementVisible) {
-            reveal.classList.add('active');
-          }
-        });
-      };
+      cursorDot.style.left = `${posX}px`;
+      cursorDot.style.top = `${posY}px`;
       
-      window.addEventListener('scroll', revealOnScroll);
-      revealOnScroll(); // Trigger initially
+      cursorOutline.animate({
+        left: `${posX}px`,
+        top: `${posY}px`
+      }, { duration: 500, fill: "forwards" });
     });
+
+    // Scroll Reveals
+    const reveals = document.querySelectorAll('.reveal');
+    const revealOnScroll = () => {
+      const windowHeight = window.innerHeight;
+      const elementVisible = 100;
+      reveals.forEach(reveal => {
+        const elementTop = reveal.getBoundingClientRect().top;
+        if (elementTop < windowHeight - elementVisible) {
+          reveal.classList.add('active');
+        }
+      });
+    };
+    window.addEventListener('scroll', revealOnScroll);
+    revealOnScroll();
+
+    // Typewriter Effect
+    const words = ["DevOps Engineer", "AWS Certified Solutions Architect", "Cloud Automation Expert"];
+    let i = 0; let j = 0; let currentWord = ""; let isDeleting = false;
+    const typewriterElement = document.getElementById("typewriter");
+
+    function type() {
+      currentWord = words[i];
+      if (isDeleting) {
+        typewriterElement.textContent = currentWord.substring(0, j - 1);
+        j--;
+      } else {
+        typewriterElement.textContent = currentWord.substring(0, j + 1);
+        j++;
+      }
+
+      let typeSpeed = 100;
+      if (isDeleting) typeSpeed /= 2;
+
+      if (!isDeleting && j === currentWord.length) {
+        typeSpeed = 2000;
+        isDeleting = true;
+      } else if (isDeleting && j === 0) {
+        isDeleting = false;
+        i = (i + 1) % words.length;
+        typeSpeed = 500;
+      }
+
+      setTimeout(type, typeSpeed);
+    }
+    document.addEventListener("DOMContentLoaded", type);
   </script>
 </body>
 </html>
