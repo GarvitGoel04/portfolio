@@ -79,7 +79,7 @@
             position: relative;
         }
 
-        /* 1. Custom Cursor */
+        /* 1. Custom Cursor & Trail */
         .cursor-dot {
             width: 8px;
             height: 8px;
@@ -107,6 +107,18 @@
             pointer-events: none;
             z-index: 9999;
             transition: width 0.3s ease-out, height 0.3s ease-out, border-color 0.3s;
+        }
+        
+        .cursor-trail {
+            position: fixed;
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: var(--accent-violet);
+            pointer-events: none;
+            z-index: 9998;
+            opacity: 0.5;
+            box-shadow: 0 0 10px var(--accent-violet);
         }
         
         .cursor-hover .cursor-dot {
@@ -306,6 +318,22 @@
             font-weight: 700;
             line-height: 1.1;
             margin-bottom: 20px;
+            position: relative;
+            display: inline-block;
+        }
+
+        /* Glitch Effect on Hover */
+        .hero-title:hover {
+            animation: glitch-anim 0.3s infinite;
+        }
+        
+        @keyframes glitch-anim {
+            0% { transform: translate(0) }
+            20% { transform: translate(-2px, 2px); color: var(--accent-cyan); text-shadow: 2px 0 var(--accent-violet); }
+            40% { transform: translate(-2px, -2px); color: var(--text-primary); text-shadow: none; }
+            60% { transform: translate(2px, 2px); color: var(--accent-violet); text-shadow: -2px 0 var(--accent-cyan); }
+            80% { transform: translate(2px, -2px); color: var(--text-primary); text-shadow: none; }
+            100% { transform: translate(0) }
         }
 
         .hero-typewriter {
@@ -780,6 +808,25 @@
             overflow: hidden;
         }
         
+        /* Animated neon tracing border */
+        .project-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: -100%; width: 100%; height: 2px;
+            background: linear-gradient(90deg, transparent, var(--accent-cyan), transparent);
+            transition: 0.5s;
+            z-index: 10;
+        }
+        .project-card:hover::before {
+            left: 100%;
+            transition: 1s linear infinite;
+            animation: trace-border 2s linear infinite;
+        }
+        @keyframes trace-border {
+            0% { left: -100%; top: 0; }
+            100% { left: 100%; top: 0; }
+        }
+
         /* Terminal overlay pattern */
         .project-card::after {
             content: '';
@@ -1250,7 +1297,7 @@
             <i class="devicon-terraform-plain floating-icon icon-tf"></i>
             
             <div class="profile-wrapper">
-                <img src="https://avatars.githubusercontent.com/u/99648412?v=4" alt="Garvit Goel" class="profile-img" onerror="this.src='https://ui-avatars.com/api/?name=Garvit+Goel&size=350&background=111827&color=06b6d4'">
+                <img src="./Profile_pic.jpeg" alt="Garvit Goel" class="profile-img" onerror="this.src='https://ui-avatars.com/api/?name=Garvit+Goel&size=350&background=111827&color=06b6d4'">
                 <div class="aws-badge">
                     <i class="fa-brands fa-aws"></i> AWS Certified ✓
                 </div>
@@ -1492,11 +1539,25 @@
 
     <!-- Scripts -->
     <script>
-        // 1. Custom Cursor
+        // 1. Custom Cursor & Trails
         const cursorDot = document.querySelector('.cursor-dot');
         const cursorRing = document.querySelector('.cursor-ring');
         
+        let trails = [];
+        const numTrails = 10;
+        for(let i=0; i<numTrails; i++) {
+            const trail = document.createElement('div');
+            trail.className = 'cursor-trail';
+            document.body.appendChild(trail);
+            trails.push({ el: trail, x: 0, y: 0 });
+        }
+        
+        let currentMouseX = 0, currentMouseY = 0;
+        
         window.addEventListener('mousemove', (e) => {
+            currentMouseX = e.clientX;
+            currentMouseY = e.clientY;
+            
             cursorDot.style.left = e.clientX + 'px';
             cursorDot.style.top = e.clientY + 'px';
             
@@ -1506,6 +1567,27 @@
                 cursorRing.style.top = e.clientY + 'px';
             }, 50);
         });
+        
+        // Trail animation loop
+        function animateTrails() {
+            let x = currentMouseX;
+            let y = currentMouseY;
+            
+            trails.forEach((trail, index) => {
+                const nextTrail = trails[index + 1] || trails[0];
+                x += (nextTrail.x - x) * 0.4;
+                y += (nextTrail.y - y) * 0.4;
+                
+                trail.x = x;
+                trail.y = y;
+                
+                trail.el.style.left = x + 'px';
+                trail.el.style.top = y + 'px';
+                trail.el.style.transform = `scale(${(numTrails - index) / numTrails})`;
+            });
+            requestAnimationFrame(animateTrails);
+        }
+        animateTrails();
 
         // Add hover effect for clickable elements
         const clickables = document.querySelectorAll('a, button, .project-card, .cert-card');
