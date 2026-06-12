@@ -1,25 +1,62 @@
-# Garvit Goel | DevOps Engineer Portfolio
+# Garvit Goel — Portfolio
 
-Welcome to the source code for my personal portfolio website!
+> Personal portfolio website for Garvit Goel, Junior DevOps Engineer at Omniful AI.
 
-## 🚀 Live Demo
-You can view the live portfolio here: [https://GarvitGoel04.github.io/portfolio/](https://GarvitGoel04.github.io/portfolio/)
+🌐 **Live Site:** https://GarvitGoel04.github.io/portfolio/
 
-## 🛠️ Built With
-- Pure **HTML5**, **CSS3**, and **JavaScript** (No heavy frameworks!)
-- **Vanilla Tilt.js** for 3D card animations
-- **Typed.js** for the hero typewriter effect
-- Custom HTML5 Canvas Particle Engine
-- **Devicons** & **FontAwesome** for icons
-- Hosted on **GitHub Pages**
+---
 
-## ✨ Features
-- **Fully Responsive**: Adapts seamlessly to mobile, tablet, and desktop screens.
-- **Interactive Animations**: Glowing cursor trails, neon-tracing project cards, and a cyber-glitch hero effect.
-- **Dynamic Particles**: A custom-built background particle network that reacts to mouse movement.
-- **Glassmorphism UI**: Modern aesthetic using backdrop blurs and semi-transparent layers.
+## About
 
-## 👨‍💻 About Me
-I'm a Junior DevOps Engineer and an AWS Certified Solutions Architect – Associate. I specialize in building scalable infrastructure, CI/CD automation, and modern observability stacks.
+This portfolio showcases my experience, projects, and certifications as a DevOps Engineer specializing in AWS infrastructure, CI/CD automation, and Infrastructure as Code.
 
-Connect with me on [LinkedIn](https://www.linkedin.com/in/garvitgoel04/) or check out my work on [GitHub](https://github.com/GarvitGoel04/).
+**Current Role:** Junior DevOps Engineer @ Omniful AI, Gurugram  
+**Certified:** AWS Solutions Architect – Associate (SAA-C03)  
+**Education:** B.Tech Computer Science & Design, IMS Engineering College (CGPA: 7.9)
+
+---
+
+## Tech Stack Highlighted
+
+| Category | Technologies |
+|----------|-------------|
+| Cloud & DevOps | AWS (EC2, ECS, S3, IAM, VPC, CloudWatch), Terraform, Docker, Kubernetes |
+| CI/CD | Jenkins, GitHub Actions, Newman |
+| Monitoring | Grafana, Prometheus, CloudWatch Logs |
+| Databases | PostgreSQL, MongoDB |
+| Programming | Java, C/C++, Bash |
+| Tools | Git, NGINX, YAML, Redash, SQL |
+
+---
+
+## Certifications
+
+- 🏆 **AWS Certified Solutions Architect – Associate** (SAA-C03) — Sep 2025
+- ✅ Google: Git and GitHub — Sep 2025
+- ✅ Docker — KodeKloud, Sep 2024
+- ✅ Kubernetes Hands-On — KodeKloud, Sep 2024
+- ✅ Introduction to Cloud Computing — IBM, May 2024
+
+---
+
+## Projects
+
+### DevOps-QA Pipeline
+CI/CD pipeline for automated API testing using Docker, Jenkins, Postman/Newman, and GitHub.  
+Simulates real-world QA workflows with versioned test runs and HTML report generation.
+
+### VirtualVeins
+Final-year research project analyzing the impact of social media on human brain behavior.  
+Built with Python (Pandas, Matplotlib, SciPy, Seaborn) with statistical validation (P-tests, ad-hoc tests).
+
+---
+
+## Contact
+
+📧 goelgarvit3104@gmail.com  
+💼 [LinkedIn](https://www.linkedin.com/in/garvitgoel04/)  
+🐙 [GitHub](https://github.com/GarvitGoel04/)
+
+---
+
+*Built with pure HTML, CSS, and JavaScript. No frameworks. No build tools.*
