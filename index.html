@@ -190,7 +190,6 @@
     .timeline { position: relative; margin-top: 40px; }
     .timeline-line { position: absolute; left: 6px; top: 0; bottom: 0; width: 2px; background: var(--bg-elevated); z-index: 0; }
     .timeline-item { position: relative; padding-left: 40px; margin-bottom: 60px; opacity: 1; transform: translateX(0); }
-    .timeline-item.animate-ready { opacity: 0; transform: translateX(60px); transition: opacity 0.6s ease, transform 0.6s ease; }
     .timeline-item.in-view { opacity: 1; transform: translateX(0); }
     .timeline-dot {
       position: absolute; left: 0; top: 6px; width: 14px; height: 14px; border-radius: 50%;
@@ -294,6 +293,51 @@
       .skill-grid { grid-template-columns: 1fr 1fr; }
     }
     @media (max-width: 600px) { .skill-grid { grid-template-columns: 1fr; } }
+
+    /* ========================================
+       EMERGENCY EXPERIENCE SECTION VISIBILITY FIX
+       These rules override all animation states
+       ======================================== */
+
+    #experience .timeline-item,
+    #experience .timeline-card,
+    #experience .timeline-content,
+    #experience .experience-card,
+    #experience .exp-card,
+    #experience [class*="card"],
+    #experience [class*="content"],
+    #experience [class*="item"] {
+      opacity: 1 !important;
+      visibility: visible !important;
+      transform: translateX(0) translateY(0) !important;
+      display: block !important;
+      max-height: none !important;
+      overflow: visible !important;
+      clip-path: none !important;
+      pointer-events: auto !important;
+      position: relative !important;
+      left: auto !important;
+      right: auto !important;
+    }
+
+    /* Force all text inside experience to be white and visible */
+    #experience h3,
+    #experience h4,
+    #experience p,
+    #experience li,
+    #experience span,
+    #experience .company,
+    #experience .date,
+    #experience .location,
+    #experience .badge-current,
+    #experience .card-bullets,
+    #experience .card-bullets li,
+    #experience .card-tags,
+    #experience .card-tags span {
+      opacity: 1 !important;
+      visibility: visible !important;
+      color: inherit !important;
+    }
   </style>
 </head>
 <body>
@@ -640,19 +684,19 @@
     }
     setTimeout(typeWriter, 1000);
 
-    // 4. EXPERIENCE JS PROGRESSIVE ENHANCEMENT
-    if ('IntersectionObserver' in window) {
-      document.querySelectorAll('.timeline-item').forEach(el => el.classList.add('animate-ready'));
-      const observer = new IntersectionObserver((entries) => {
-        entries.forEach(e => {
-          if (e.isIntersecting) {
-            e.target.classList.add('in-view');
-            observer.unobserve(e.target);
-          }
-        });
-      }, { threshold: 0.05, rootMargin: '0px 0px -50px 0px' });
-      document.querySelectorAll('.timeline-item').forEach(el => observer.observe(el));
-    }
+    // 4. EXPERIENCE JS PROGRESSIVE ENHANCEMENT - EMERGENCY FIX
+    document.addEventListener("DOMContentLoaded", () => {
+      document.querySelectorAll('.timeline-item, .timeline-card, .timeline-content, .experience-card').forEach(el => {
+        el.style.opacity = '1';
+        el.style.transform = 'none';
+        el.style.visibility = 'visible';
+        el.style.display = el.style.display === 'none' ? 'block' : el.style.display;
+        // Remove all animation classes
+        el.classList.remove('hidden', 'invisible', 'animate-ready', 'fade-out', 'slide-out', 'pre-animate');
+        // Add visible classes
+        el.classList.add('in-view', 'visible', 'animated', 'show');
+      });
+    });
 
     // 5. LAZY INIT TILT
     const tiltObserver = new IntersectionObserver((entries) => {
