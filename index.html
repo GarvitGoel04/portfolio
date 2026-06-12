@@ -582,7 +582,7 @@
       <div class="profile-wrapper reveal" data-delay="500">
         <div class="hex-border"></div>
         <div class="hex-container">
-          <img src="./Profile_pic.jpeg" alt="Garvit Goel" class="hex-img" loading="lazy">
+          <img src="Profile_pic.jpeg" alt="Garvit Goel" class="hex-img">
           <div class="scanline"></div>
         </div>
         <div class="hud-element hud-1">AWS ✓</div>
@@ -1074,7 +1074,8 @@
     const observer = new IntersectionObserver((entries, obs) => {
       entries.forEach((entry, idx) => {
         if (entry.isIntersecting) {
-          setTimeout(() => { entry.target.classList.add('active'); }, (entry.target.dataset.delay || 0) + (idx * 50));
+          const delayMs = parseInt(entry.target.dataset.delay || 0, 10);
+          setTimeout(() => { entry.target.classList.add('active'); }, delayMs + (idx * 50));
           const glitchText = entry.target.querySelector('.glitch-text');
           if(glitchText) glitchScramble(glitchText);
           
