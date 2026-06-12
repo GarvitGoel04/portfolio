@@ -10,9 +10,9 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css">
   <style>
     :root {
-      --bg-primary: #030712;
-      --bg-secondary: #0d1117;
-      --bg-tertiary: #111827;
+      --bg-primary: #0a0f25;
+      --bg-secondary: #131a35;
+      --bg-tertiary: #1b2446;
       --accent-cyan: #06b6d4;
       --accent-violet: #8b5cf6;
       --accent-green: #10b981;
@@ -876,7 +876,7 @@
       </div>
       <div class="hero-image-wrap reveal">
         <div class="profile-ring">
-          <img src="./Profile_pic.jpeg" alt="Garvit Goel" class="profile-img" onerror="this.style.background='linear-gradient(135deg,#06b6d4,#8b5cf6)';this.alt='GG'">
+          <img src="https://raw.githubusercontent.com/GarvitGoel04/portfolio/main/Profile_pic.jpeg" alt="Garvit Goel" class="profile-img" onerror="this.style.background='linear-gradient(135deg,#06b6d4,#8b5cf6)';this.alt='GG'">
           <span class="aws-badge"><i class="fas fa-certificate"></i> AWS Certified ✓</span>
         </div>
       </div>
@@ -891,8 +891,8 @@
       <div class="about-grid">
         <div class="stats-grid reveal">
           <div class="stat-card glass">
-            <div class="stat-number" data-target="1">0</div>
-            <div class="stat-label">Years Experience</div>
+            <div class="stat-number" data-target="8">0</div>
+            <div class="stat-label">Months Experience</div>
           </div>
           <div class="stat-card glass">
             <div class="stat-number" data-target="2">0</div>
@@ -1287,7 +1287,7 @@
     function animateCounters() {
       document.querySelectorAll('.stat-number[data-target]').forEach(counter => {
         const target = +counter.dataset.target;
-        const suffix = target === 1 ? '+' : target === 5 ? '+' : '';
+        const suffix = target === 5 ? '+' : '';
         let current = 0;
         const step = target / 40;
         const timer = setInterval(() => {
