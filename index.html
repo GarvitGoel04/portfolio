@@ -1250,7 +1250,7 @@
             <i class="devicon-terraform-plain floating-icon icon-tf"></i>
             
             <div class="profile-wrapper">
-                <img src="./Profile_pic.jpeg" alt="Garvit Goel" class="profile-img" onerror="this.src='https://ui-avatars.com/api/?name=Garvit+Goel&size=350&background=111827&color=06b6d4'">
+                <img src="https://avatars.githubusercontent.com/u/99648412?v=4" alt="Garvit Goel" class="profile-img" onerror="this.src='https://ui-avatars.com/api/?name=Garvit+Goel&size=350&background=111827&color=06b6d4'">
                 <div class="aws-badge">
                     <i class="fa-brands fa-aws"></i> AWS Certified ✓
                 </div>
@@ -1265,8 +1265,8 @@
         <div class="about-grid">
             <div class="stats-container reveal">
                 <div class="stat-card">
-                    <div class="stat-number" data-target="1">0</div>
-                    <div class="stat-text">Years Exp.</div>
+                    <div class="stat-number" data-target="8">0</div>
+                    <div class="stat-text">Months Exp.</div>
                 </div>
                 <div class="stat-card">
                     <div class="stat-number"><span data-target="2">0</span></div>
@@ -1693,10 +1693,39 @@
             counted = true;
         }
 
-        // 6. Particles Background
+        // 6. Particles Background & Parallax
         const canvas = document.getElementById('particles-canvas');
         const ctx = canvas.getContext('2d');
         let particles = [];
+        
+        let mouse = { x: null, y: null };
+        window.addEventListener('mousemove', (e) => {
+            mouse.x = e.clientX;
+            mouse.y = e.clientY;
+            
+            // Parallax effect for hero elements
+            const profileWrapper = document.querySelector('.profile-wrapper');
+            const floatingIcons = document.querySelectorAll('.floating-icon');
+            
+            const xAxis = (window.innerWidth / 2 - e.pageX) / 25;
+            const yAxis = (window.innerHeight / 2 - e.pageY) / 25;
+            
+            if(profileWrapper) {
+                profileWrapper.style.transform = `translate(${xAxis}px, ${yAxis}px)`;
+            }
+            
+            floatingIcons.forEach((icon, index) => {
+                const speed = (index + 1) * 1.5;
+                icon.style.transform = `translate(${xAxis * speed}px, ${yAxis * speed}px)`;
+            });
+        });
+        
+        window.addEventListener('mouseout', () => {
+            mouse.x = null;
+            mouse.y = null;
+            const profileWrapper = document.querySelector('.profile-wrapper');
+            if(profileWrapper) profileWrapper.style.transform = 'translate(0px, 0px)';
+        });
         
         function resizeCanvas() {
             canvas.width = window.innerWidth;
@@ -1738,6 +1767,25 @@
             for(let i=0; i<particles.length; i++) {
                 particles[i].update();
                 particles[i].draw();
+                
+                // Connect particles to mouse
+                if (mouse.x != null && mouse.y != null) {
+                    const dx = particles[i].x - mouse.x;
+                    const dy = particles[i].y - mouse.y;
+                    const dist = Math.sqrt(dx*dx + dy*dy);
+                    if (dist < 200) {
+                        ctx.beginPath();
+                        ctx.strokeStyle = `rgba(6, 182, 212, ${0.3 - dist/666})`;
+                        ctx.lineWidth = 1.5;
+                        ctx.moveTo(particles[i].x, particles[i].y);
+                        ctx.lineTo(mouse.x, mouse.y);
+                        ctx.stroke();
+                        
+                        // slight pull towards mouse
+                        particles[i].x -= dx * 0.01;
+                        particles[i].y -= dy * 0.01;
+                    }
+                }
                 
                 for(let j=i+1; j<particles.length; j++) {
                     const dx = particles[i].x - particles[j].x;
